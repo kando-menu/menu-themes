@@ -1,0 +1,141 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
+/* SPDX-License-Identifier: CC-BY-4.0 */
+
+@font-face {
+  font-family: 'Minecraft';
+  src: url(MinecraftRegular-Bmg3.otf);
+}
+
+#kando-menu {
+
+  .menu-node {
+    --child-distance: 100px;
+    --child-size: 60px;
+
+    --fade-distance: 80px;
+    --fade-size: 45px;
+
+    --connector-width: 10px;
+
+    --menu-transition: 150ms ease;
+
+    transition: var(--menu-transition);
+
+    /* Positioning -------------------------------------------------------------------- */
+
+    /* Child items are positioned around the active node. */
+    &.child {
+      transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+          calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+    }
+
+    /* Grandchild items are positioned around the child items. They are not visible in
+       this theme, but we still need to position them so that child items can be properly
+       faded in and out. */
+    &.grandchild {
+      transform: translate(calc(var(--fade-distance) * var(--dir-x)),
+          calc(var(--fade-distance) * var(--dir-y)));
+    }
+
+    /* Theme Layers ------------------------------------------------------------------- */
+
+    /* This theme comes with only one layer. This contains the icon of the menu item. */
+
+    /* Icons are drawn pixelated. */
+    .icon-container {
+      color: var(--text-color);
+      margin: 10px;
+      width: calc(100% - 20px);
+      image-rendering: pixelated;
+    }
+
+    /* If a node is clicked, we scale it down a bit. */
+    &.hovered.clicked>.icon-layer {
+      transform: scale(0.95);
+    }
+
+    /* Child items are displayed around the active node. The parent node of the active
+       node is displayed in a similar style. */
+    &.active>.icon-layer,
+    &.parent>.icon-layer,
+    &.child>.icon-layer,
+    &.grandchild>.icon-layer {
+      position: absolute;
+      top: calc(-1 * var(--child-size) / 2);
+      left: calc(-1 * var(--child-size) / 2);
+      width: var(--child-size);
+      height: var(--child-size);
+      background-image: url('icon.png');
+      background-size: contain;
+      image-rendering: pixelated;
+    }
+
+    &.grandchild>.icon-layer {
+      top: calc(-1 * var(--fade-size) / 2);
+      left: calc(-1 * var(--fade-size) / 2);
+      width: var(--fade-size);
+      height: var(--fade-size);
+    }
+
+    /* Hovered child or parent items are highlighted. */
+    &.parent.hovered>.icon-layer,
+    &.child.hovered>.icon-layer {
+      background-image: url('icon-highlight.png');
+    }
+
+    /* Grandchild items are transparent. */
+    &.grandchild {
+      opacity: 0;
+    }
+
+    /* We disable any transition for dragged items. */
+    &.dragged {
+      transition: none;
+    }
+
+    /* Connectors --------------------------------------------------------------------- */
+
+    .connector {
+      transition: var(--menu-transition);
+      height: var(--connector-width);
+      top: calc(-1 * var(--connector-width) / 2);
+
+      border-width: 5px 60px 5px 60px;
+      border-style: solid;
+      border-image: url('connector.png');
+      border-image-slice: 5 60 5 60;
+      border-image-repeat: round;
+      image-rendering: pixelated;
+
+      opacity: 0;
+    }
+
+    &:has(.dragged)>.connector,
+    &:has(.clicked)>.connector {
+      transition: none;
+    }
+
+    &.parent>.connector,
+    &:has(.dragged)>.connector,
+    &:has(.clicked)>.connector {
+      opacity: 1;
+    }
+  }
+
+  /* Center Text ---------------------------------------------------------------------- */
+
+  .center-text {
+    font-family: 'Minecraft', sans-serif;
+    text-shadow: 2px 2px 0px black;
+    color: var(--text-color);
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
