@@ -16,6 +16,8 @@ Depending on your platform, the `menu-themes` directory is located at:
 - <img height="14" width="26" src="https://cdn.simpleicons.org/apple" /> macOS: `~/Library/Application Support/kando/menu-themes/`
 - <img height="14" width="26" src="https://cdn.simpleicons.org/linux/black" /> Linux: `~/.config/kando/menu-themes/`
 
+You can also join the [Kando Discord server](https://discord.gg/hZwbVSDkhy) to share your themes and get help with creating them!
+
 ## Available Themes
 
 | Theme                                                                                                                                                                                                                                                 | Preview                             |
