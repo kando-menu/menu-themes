@@ -9,6 +9,9 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Menu Themes for Kando
 
+[![REUSE status](https://api.reuse.software/badge/github.com/kando-menu/menu-themes)](https://api.reuse.software/info/github.com/kando-menu/menu-themes)
+[![Discord](https://img.shields.io/discord/1124300911574003732?logo=discord&label=Discord&color=%235865f2)](https://discord.gg/hZwbVSDkhy)
+
 [Kando](https://github.com/kando-menu/kando) comes with several built-in themes.
 This repository contains additional themes that you can use with Kando.
 You can easily [create your own theme](https://github.com/kando-menu/kando/blob/main/docs/menu-themes.md)!
@@ -28,3 +31,11 @@ You can also join the [Kando Discord server](https://discord.gg/hZwbVSDkhy) to s
 | Theme                                                                                                                                                                                                                                                 | Preview                             |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | [**Minecraft**](./minecraft)<br>This theme mimics the aesthetics of this well know computer game. To get the most out of it, it is recommended to use a pixelated icon theme such as [pixelitos](https://github.com/ItzSelenux/pixelitos-icon-theme)! | ![preview](./minecraft/preview.jpg) |
+
+## Adding your Theme
+
+If you created a theme that you want to share with the community, simply open a pull request!
+This repository follows the [REUSE](https://reuse.software/) guidelines, so make sure to add the necessary licensing information to your theme.
+You can follow the existing themes as an example; there is also a CI job that checks if your contribution is compliant.
+
+💖 Thanks for sharing your creativity with the community! 💖
