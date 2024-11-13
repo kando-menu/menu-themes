@@ -35,6 +35,8 @@ You can also join the [Kando Discord server](https://discord.gg/hZwbVSDkhy) to s
 ## Adding your Theme
 
 If you created a theme that you want to share with the community, simply open a pull request!
+If you need help with that, feel free to ask in the [Kando Discord server](https://discord.gg/hZwbVSDkhy).
+
 This repository follows the [REUSE](https://reuse.software/) guidelines, so make sure to add the necessary licensing information to your theme.
 You can follow the existing themes as an example; there is also a CI job that checks if your contribution is compliant.
 
