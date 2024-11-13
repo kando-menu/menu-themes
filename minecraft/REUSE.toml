@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+# SPDX-License-Identifier: CC0-1.0
+
+version = 1
+
+[[annotations]]
+path = ["*.jpg", "*.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Simon Schneegans <code@simonschneegans.de>"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Font downloaded from: https://www.fontspace.com/minecraft-font-f28180
+[[annotations]]
+path = ["MinecraftRegular-Bmg3.otf"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "JDGraphics"
+SPDX-License-Identifier = "CC0-1.0"
