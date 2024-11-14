@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: yar2000T <https://github.com/yar2000T>
+# SPDX-License-Identifier: CC0-1.0
+
+version = 1
+
+[[annotations]]
+path = ["*.jpg", "*.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "yar2000T <https://github.com/yar2000T>"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["KnightForge/0xProtoNerdFontPropo-Regular.otf"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "JDGraphics"
+SPDX-License-Identifier = "CC0-1.0"
