@@ -4,7 +4,7 @@
 {
   name: "KnightForge",
   author: "yar2000T",
-  license: "CC-BY-4.0",
+  license: "CC0-1.0",
   themeVersion: "1.0",
 
   engineVersion: 1,
