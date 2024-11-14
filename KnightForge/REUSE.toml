@@ -13,5 +13,5 @@ SPDX-License-Identifier = "CC-BY-4.0"
 [[annotations]]
 path = ["0xProtoNerdFontPropo-Regular.otf"]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "JDGraphics"
-SPDX-License-Identifier = "CC0-1.0"
+SPDX-FileCopyrightText = "(c) 2023, 0xType Project Authors (https://github.com/0xType)"
+SPDX-License-Identifier = "OFL-1.1"
