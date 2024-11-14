@@ -1,6 +1,5 @@
-/* SPDX-FileCopyrightText: yar2000T <https://github.com/yar2000T> */
-/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
-/* SPDX-License-Identifier: CC-BY-4.0 */
+// SPDX-FileCopyrightText: yar2000T <https://github.com/yar2000T>
+// SPDX-License-Identifier: CC0-1.0
 
 {
   name: "KnightForge",
