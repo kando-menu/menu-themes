@@ -32,7 +32,7 @@ You can also join the [Kando Discord server](https://discord.gg/hZwbVSDkhy) to s
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 | [**Minecraft**](./minecraft)<br>This theme mimics the aesthetics of this well know computer game. To get the most out of it, it is recommended to use a pixelated icon theme such as [pixelitos](https://github.com/ItzSelenux/pixelitos-icon-theme)! | ![preview](./minecraft/preview.jpg) |
 
-| [**KnightForge**](./KnightForge)<br>This theme combines style and compactness [pixelitos](https://github.com/ItzSelenux/pixelitos-icon-theme)! | ![preview](./KnightForge/preview.jpg) |
+| [**KnightForge**](./KnightForge)<br>This theme combines style and compactness! | ![preview](./KnightForge/preview.jpg) |
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
 
 ## Adding your Theme
