@@ -9,6 +9,7 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "yar2000T <https://github.com/yar2000T>"
 SPDX-License-Identifier = "CC-BY-4.0"
 
+# Font downloaded from: https://www.nerdfonts.com/font-downloads
 [[annotations]]
 path = ["0xProtoNerdFontPropo-Regular.otf"]
 precedence = "aggregate"
