@@ -1,0 +1,23 @@
+// SPDX-FileCopyrightText: yar2000T <https://github.com/yar2000T>
+// SPDX-License-Identifier: CC0-1.0
+
+{
+  name: "KnightForge",
+  author: "yar2000T",
+  license: "CC0-1.0",
+  themeVersion: "1.0",
+
+  engineVersion: 1,
+
+  maxMenuRadius: 160,
+
+  centerTextWrapWidth: 120,
+
+  drawChildrenBelow: true,
+
+  colors: {
+    "text-color": "rgb(255, 255, 255)",
+  },
+
+  layers: [{ class: "icon-layer", content: "icon" }],
+}

@@ -28,9 +28,11 @@ You can also join the [Kando Discord server](https://discord.gg/hZwbVSDkhy) to s
 
 ## Available Themes
 
-| Theme                                                                                                                                                                                                                                                 | Preview                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
-| [**Minecraft**](./minecraft)<br>This theme mimics the aesthetics of this well know computer game. To get the most out of it, it is recommended to use a pixelated icon theme such as [pixelitos](https://github.com/ItzSelenux/pixelitos-icon-theme)! | ![preview](./minecraft/preview.jpg) |
+| Theme                                                                                                                                                                                                                                                   | Preview                                   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
+| [**Minecraft**](./minecraft)<br>This theme mimics the aesthetics of this well-known computer game. To get the most out of it, it is recommended to use a pixelated icon theme such as [pixelitos](https://github.com/ItzSelenux/pixelitos-icon-theme)! | ![preview](./minecraft/preview.jpg)       |
+| [**KnightForge**](./KnightForge)<br>This theme combines style and compactness!                                                                                                                                                                          | ![preview](./KnightForge/preview.jpg)     |
+
 
 ## Adding your Theme
 
