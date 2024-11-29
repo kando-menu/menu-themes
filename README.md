@@ -14,7 +14,7 @@ SPDX-License-Identifier: CC-BY-4.0
 
 [Kando](https://github.com/kando-menu/kando) comes with several built-in themes.
 This repository contains additional themes that you can use with Kando.
-You can easily [create your own theme](https://kando.menu/advanced-usage/create-menu-themes/)!
+You can easily [create your own theme](https://kando.menu/getting-involved/create-menu-themes/)!
 If you created something cool, feel free to share it with the community by opening a pull request.
 
 To install a theme, simply download this repository and copy the directory of the theme you want to use into the `menu-themes` directory of your Kando installation.
