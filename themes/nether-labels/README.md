@@ -1,6 +1,6 @@
 <!--
 SPDX-FileCopyrightText: Elfi Ox <https://github.com/elfi-ox>
-SPDX-License-Identifier: CC-BY-1.0
+SPDX-License-Identifier: CC-BY-4.0
 -->
 
 <p align="center">  
