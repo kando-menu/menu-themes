@@ -30,6 +30,7 @@
   // variables. The default values are used if the user does not provide any values.
   colors: {
     'accent-color': '#D3ADFF',
+    'hover-color': '#D3ADFF',
     'connector-color': '#D3ADFF',
     'circle-color' : '#131219',
     'border-color': '#131219',
