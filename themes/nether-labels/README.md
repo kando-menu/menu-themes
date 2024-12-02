@@ -7,4 +7,6 @@ SPDX-License-Identifier: CC-BY-1.0
   <img src="banner.jpg" />
 </p>
 
-This theme is a Modified version of the "Rainbow Labels" theme made by Simon Schneegans
+With its dark and classy colors, this theme features labels on your items and submenus and a sleek overall appearance. If, however, you're style is more bright or flashy, you can fully customize this theme with its 6 colors options.
+
+This theme is a Modified version of the "Rainbow Labels" theme made by Simon Schneegans.
