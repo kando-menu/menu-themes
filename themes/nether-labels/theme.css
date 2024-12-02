@@ -74,9 +74,9 @@
   }
 
   &.hovered>.label-layer {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-    box-shadow: 0 0 6px var(--accent-color) inset;
+    color: var(--hover-color);
+    border-color: var(--hover-color);
+    box-shadow: 0 0 6px var(--hover-color) inset;
   }
 
   &.right>.label-layer {
