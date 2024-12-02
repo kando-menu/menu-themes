@@ -70,7 +70,8 @@
     height: var(--icon-size);
     border-radius: var(--icon-size);
     top: calc(-1 * var(--icon-size) / 2);
-    padding: 9px 15px;
+    padding: 7.3px 15px;
+    font-size: calc(var(--icon-size) / 2.7);
   }
 
   &.hovered>.label-layer {
