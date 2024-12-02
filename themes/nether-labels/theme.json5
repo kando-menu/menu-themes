@@ -6,11 +6,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////
 
 // SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+// SPDX-FileCopyrightText: Elfi Ox <https://github.com/elfi-ox> */
 // SPDX-License-Identifier: CC0-1.0
 
 {
   name: 'Nether Labels',
-  author: 'Simon Schneegans, Elfi',
+  author: 'Simon Schneegans, Elfi Ox',
   license: 'CC0-1.0',
   themeVersion: '1.0',
 
