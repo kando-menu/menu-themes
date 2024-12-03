@@ -1,0 +1,174 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
+/* SPDX-FileCopyrightText: Elfi Ox <https://github.com/elfi-ox> */
+/* SPDX-License-Identifier: CC0-1.0 */
+
+.menu-node {
+  --child-distance: 80px;
+  --grandchild-distance: 16px;
+  --center-size: 80px;
+  --icon-size: 40px;
+  --connector-width: 10px;
+  --menu-transition: transform 200ms ease, opacity 200ms ease;
+  --connector-transition: width 200ms ease, opacity 200ms ease;
+
+
+  transition: var(--menu-transition);
+
+  /* Positioning ---------------------------------------------------------------------- */
+
+  /* Child items are positioned around the active node. */
+  &.child.type-submenu {
+    transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+  }
+
+  &.child:not(.type-submenu) {
+    transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y))) !important;
+  }
+
+  /* Grandchild items are positioned around the child items. */
+  &.grandchild {
+    transform: translate(calc(var(--grandchild-distance) * var(--dir-x)),
+        calc(var(--grandchild-distance) * var(--dir-y)));
+  }
+
+  /* Theme Layers --------------------------------------------------------------------- */
+
+  /* We hide all icons by default. They will be shown further down in this file for the
+     the child items. */
+  .icon-container {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    clip-path: circle(45% at 50% 50%);
+    transition: var(--menu-transition);
+    color: var(--accent-color);
+  }
+
+  .label-layer,
+  .icon-layer {
+    position: absolute;
+    transition: var(--menu-transition);
+  }
+
+  .label-layer {
+    opacity: 0;
+    background-color: var(--label-background-color);
+    color: var(--text-color);
+    border: 2px solid var(--border-color);
+    white-space: nowrap;
+    height: var(--icon-size);
+    border-radius: var(--icon-size);
+    top: calc(-1 * var(--icon-size) / 2);
+    padding: calc(var(--icon-size) / 5) calc(var(--icon-size) / 3);
+    font-size: calc(var(--icon-size) / 2.7);
+  }
+
+  &.hovered>.label-layer {
+    color: var(--hover-color);
+    border-color: var(--hover-color);
+    box-shadow: 0 0 6px var(--hover-color) inset;
+  }
+
+  &.right>.label-layer {
+    left: calc(-1 * var(--icon-size)/2);
+    padding-left: calc(var(--icon-size) + 5px);
+  }
+
+  &.left>.label-layer {
+    right: calc(-1 * var(--icon-size)/2);
+    padding-right: calc(var(--icon-size) + 5px);
+  }
+
+  &.top>.label-layer {
+    bottom: calc(0.4 * var(--icon-size));
+    top: inherit;
+    transform: translateX(-50%);
+  }
+
+  &.bottom>.label-layer {
+    top: calc(0.4 * var(--icon-size));
+    transform: translateX(-50%);
+  }
+
+  .icon-layer {
+    top: calc(-1 * var(--icon-size) / 2);
+    left: calc(-1 * var(--icon-size) / 2);
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    background-color: var(--circle-color);
+    z-index: 1;
+  }
+
+  &.active>.icon-layer {
+    top: calc(-1 * var(--center-size) / 2);
+    left: calc(-1 * var(--center-size) / 2);
+    width: var(--center-size);
+    height: var(--center-size);
+  }
+
+  &.grandchild>.icon-layer {
+    top: calc(-1 * var(--grandchild-size) / 2);
+    left: calc(-1 * var(--grandchild-size) / 2);
+    width: var(--grandchild-size);
+    height: var(--grandchild-size);
+    box-shadow: none;
+  }
+
+  /* The active menu item is the center of the menu. */
+  &.child>.label-layer {
+    opacity: 1;
+  }
+
+  /* Show the icons of the parent and child items. */
+  &.active>.icon-layer>.icon-container,
+  &.parent>.icon-layer>.icon-container,
+  &.child>.icon-layer>.icon-container {
+    opacity: 1;
+  }
+
+  /* We disable any transition for dragged submenu items. */
+  &.dragged.type-submenu {
+    transition: none;
+  }
+
+  /* Connectors ----------------------------------------------------------------------- */
+
+  .connector {
+    transition: var(--connector-transition);
+    height: var(--connector-width);
+    top: calc(-1 * var(--connector-width) / 2);
+    background-color: var(--connector-color);
+    opacity: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+
+  &:has(>.dragged)>.connector,
+  &:has(>.clicked)>.connector {
+    transition: none;
+  }
+
+  &:has(>.parent)>.connector,
+  &:has(>.active.type-submenu)>.connector,
+  &:has(>.dragged.type-submenu)>.connector {
+    opacity: 1;
+  }
+}
+
+/* Center Text ------------------------------------------------------------------------ */
+
+.center-text {
+  display: none;
+}
