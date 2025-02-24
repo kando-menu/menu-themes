@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: EVNTech Vache <https://discord.com/users/569168465030676497> 
+# SPDX-License-Identifier: CC0-1.0
+
+version = 1
+
+[[annotations]]
+path = ["*.jpg", "*.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "EVNTech Vache <https://discord.com/users/569168465030676497>"
+SPDX-License-Identifier = "CC0-1.0"
