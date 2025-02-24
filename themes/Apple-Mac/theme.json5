@@ -9,10 +9,10 @@
 // SPDX-License-Identifier: CC0-1.0
 
 {
-  name: 'Apple Mac',
-  author: 'EVNTech Vache',
-  license: 'CC0-1.0',
-  themeVersion: '1.0',
+  name: "Apple Mac",
+  author: "EVNTech Vache",
+  license: "CC0-1.0",
+  themeVersion: "1.0",
 
   // This theme was created for Kando's theme engine version 1. Kando will use this to
   // check if the theme is compatible with the current version of Kando.
@@ -28,19 +28,19 @@
   // These colors can be configured by the user and are vailable in the CSS file as CSS
   // variables. The default values are used if the user does not provide any values.
   colors: {
-    'accent-color': '#007AFF',
-    'hover-color': '#54c474',
-    'connector-color': '#f5f5f5',
-    'circle-color' : '#f5f5f5',
-    'border-color': '#f5f5f5',
-    'label-background-color': '#f5f5f5',
-    'text-color' : '#1F1F1F'
+    "accent-color": "#007AFF",
+    "hover-color": "#54c474",
+    "connector-color": "#f5f5f5",
+    "circle-color": "#f5f5f5",
+    "border-color": "#f5f5f5",
+    "label-background-color": "#f5f5f5",
+    "text-color": "#1F1F1F",
   },
 
   // This theme uses two layers, one for the icon and the background and one for the arrow
   // which points to the hovered item.
   layers: [
-    { class: 'icon-layer', content: 'icon' },
-    { class: 'label-layer', content: 'name' },
+    { class: "icon-layer", content: "icon" },
+    { class: "label-layer", content: "name" },
   ],
 }

@@ -74,7 +74,7 @@
     padding: calc(var(--icon-size) / 5) calc(var(--icon-size) / 3);
     font-size: calc(var(--icon-size) / 2.7);
   }
-  
+
   /* The active menu item is the center of the menu. */
   &.child>.label-layer {
     box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
