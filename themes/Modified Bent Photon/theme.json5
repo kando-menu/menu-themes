@@ -1,0 +1,46 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//   _  _ ____ _  _ ___  ____                                                           //
+//   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         //
+//   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// SPDX-FileCopyrightText: reass <https://github.com/reassDev>
+// SPDX-FileCopyrightText: Copyright (c) 2024 NeighNeighNeigh
+// SPDX-License-Identifier: MIT
+
+{
+  name: "Bent Photon Modified",
+  author: "reass and Neigh",
+  license: "CC0-1.0",
+  themeVersion: "1.0",
+
+  // This theme was created for Kando's theme engine version 1. Kando will use this to
+  // check if the theme is compatible with the current version of Kando.
+  engineVersion: 1,
+
+  // When a menu is opened too close to a screen's edge, it is moved away from the edge
+  // by this amount of pixels.
+  maxMenuRadius: 160,
+
+  // This theme draws child items below their parent items.
+  drawChildrenBelow: true,
+
+  // These colors can be configured by the user and are vailable in the CSS file as CSS
+  // variables. The default values are used if the user does not provide any values.
+  colors: {
+    'lowlight-color': 'oklch(63.11% 0.2546 22.82 / 56%)',
+    'highlight-color': 'oklch(57.52% 0.2358 28.95)',
+    'text-color': 'oklch(84.38% 0.0173 45.4)',
+    'icon-color': 'oklch(84.38% 0.0173 45.4)',
+    'number-unhovered-color': 'oklch(91.11% 0.0295 4.56 / 84%)',
+    'canvas-color': 'oklch(50.76% 0.2933 286.69 / 7%)',
+    'dots-color': 'oklch(100% 0% 0deg / 0%)',
+  },
+
+
+  layers: [
+    { class: "label-layer", content: "name" },
+    { class: "icon-layer", content: "icon" },
+  ],
+}

@@ -1,0 +1,314 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* SPDX-FileCopyrightText: reass <https://github.com/reassDev> */
+/* SPDX-FileCopyrightText: Copyright (c) 2024 NeighNeighNeigh */
+/* SPDX-License-Identifier: MIT */
+
+@font-face {
+  font-family: 'SpaceGrotesk-Bold';
+  src: url('SpaceGrotesk-Bold.otf') format('opentype');
+}
+
+
+#kando-menu {
+  --dots-spacing: 3px;
+  --dots-size: 1px;
+  background-color: var(--canvas-color);
+  background-image: radial-gradient(var(--dots-color) var(--dots-size), transparent 0);
+  background-size: var(--dots-spacing) var(--dots-spacing);
+  background-position: calc(var(--dots-spacing)-var(--dots-size)) calc(var(--dots-spacing)-var(--dots-size));
+}
+
+.menu-node {
+  --child-distance: 90px;
+  --grandchild-distance: 60px;
+  --center-size: 140px;
+  --icon-size: 32px;
+  --connector-width: 10px;
+  --menu-transition: transform 120ms ease-out, opacity 120ms ease-out;
+  --number-padding-left: 20px;
+  --box-height: 36px;
+
+
+  transform-origin: left top;
+  transition: var(--menu-transition);
+  display: flex;
+  flex-direction: row;
+
+
+
+  /* Positioning ---------------------------------------------------------------------- */
+
+  /* Child items are positioned around the active node. */
+  &.child {
+    transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+  }
+
+  /* Grandchild items are positioned around the child items. */
+  &.grandchild {
+    transform: translate(calc(var(--grandchild-distance) * var(--dir-x)),
+        calc(var(--grandchild-distance) * var(--dir-y)));
+  }
+
+
+    /* If there is a hovered child node, we scale all children up a bit to create a cool
+     zoom effect. The hovered child itself is scaled up even more. */
+  &.active:has(.hovered)>.child {
+    transform: scale(calc(1.15 - pow(var(--angle-diff) / 180, 0.25) * 0.15)) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+
+    &.hovered {
+      transform: scale(1.15) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+          calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+    }
+  }
+
+  /* Theme Layers --------------------------------------------------------------------- */
+
+  /* We hide all icons by default. They will be shown further down in this file for the
+     the child items. */
+  .icon-container {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    transition: var(--menu-transition);
+    color: var(--icon-color);
+  }
+
+
+  .label-layer,
+  .icon-layer {
+    position: relative;
+    transition: var(--menu-transition);
+  }
+
+  .icon-layer {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    margin-top: 2px;
+    z-index: 1;
+
+
+  }
+
+  .label-layer {
+    opacity: 0;
+    background-color: var(--lowlight-color);
+    color: var(--text-color);
+    font-size: 14px;
+    letter-spacing: 0.12em; /* Adjust this value as needed */
+    font-family: SpaceGrotesk-Bold;
+    line-height: var(--box-height);
+    border-radius: 5px;
+    white-space: nowrap;
+    height: var(--box-height);
+    padding: 0px 12px 0px var(--icon-size);
+/*    box-shadow: 0 2px 5px color-mix(in srgb, var(--lowlight-color) 50%, transparent);*/
+    text-transform: uppercase;
+    -webkit-font-smoothing: antialiased;
+
+
+  &::after {
+    padding-left: var(--number-padding-left);
+    color: var(--number-unhovered-color);
+/*    mix-blend-mode: overlay;*/
+    }
+  }
+
+  &:nth-last-child(4)>.label-layer::after {
+    content: "1";
+  }
+
+  &:nth-last-child(5)>.label-layer::after {
+    content: "2";
+  }
+
+  &:nth-last-child(6)>.label-layer::after {
+    content: "3";
+  }
+
+  &:nth-last-child(7)>.label-layer::after {
+    content: "4";
+  }
+
+  &:nth-last-child(8)>.label-layer::after {
+    content: "5";
+  }
+
+  &:nth-last-child(9)>.label-layer::after {
+    content: "6";
+
+  }
+
+  &:nth-last-child(10)>.label-layer::after {
+    content: "7";
+  }
+
+  &:nth-last-child(11)>.label-layer::after {
+    content: "8";
+
+  }
+
+  &:nth-last-child(12)>.label-layer::after {
+    content: "9";
+  }
+
+  &:nth-last-child(13)>.label-layer::after {
+    content: "a";
+  }
+
+  &:nth-last-child(14)>.label-layer::after {
+    content: "b";
+  }
+
+  &:nth-last-child(15)>.label-layer::after {
+    content: "c";
+  }
+
+  &.left>.label-layer {
+    top: calc(-1 * var(--icon-size) / 2);
+    left: -100%;
+  }
+
+  &.left>.icon-layer {
+    top: calc(-1 * var(--icon-size) / 2);
+    left: calc(-100% + var(--icon-size));
+  }
+
+  &.top>.label-layer {
+    top: calc(-2 * var(--icon-size) / 2);
+    left: calc(-50% - var(--icon-size) / 2);
+  }
+
+  &.top>.icon-layer {
+    top: calc(-2 * var(--icon-size) / 2);
+    left: calc(-50% + var(--icon-size) / 2);
+  }
+
+  &.bottom>.label-layer {
+    top: 0;
+    left: calc(-50% - var(--icon-size) / 2);
+  }
+
+  &.bottom>.icon-layer {
+    top: 0;
+    left: calc(-50% + var(--icon-size) / 2);
+  }
+
+  &.right>.label-layer {
+    top: calc(-1 * var(--icon-size) / 2);
+    left: calc(-1 * var(--icon-size));
+  }
+
+  &.right>.icon-layer {
+    top: calc(-1 * var(--icon-size) / 2);
+    left: 0;
+  }
+
+  &.active>.icon-layer {
+    top: calc(-1 * var(--center-size) / 2);
+    left: calc(-1 * var(--center-size) / 2);
+    width: var(--center-size);
+    height: var(--center-size);
+  }
+
+  /* The active menu item is the center of the menu. */
+  &.child>.label-layer {
+    opacity: 1;
+
+  }
+
+&.parent>.icon-layer {
+  top: calc(-1 * var(--icon-size) / 2);
+  left: calc(-1 * var(--icon-size) / 2);
+  opacity: 0;
+  transform: scale(0);
+
+}
+
+  /* Show the icons of the parent and child items. */
+  &.active>.icon-layer>.icon-container,
+  &.parent>.icon-layer>.icon-container,
+  &.child>.icon-layer>.icon-container {
+    opacity: 1;
+  }
+
+  /* We disable any transition for dragged submenu items. */
+  &.dragged {
+    transition: none;
+  }
+
+  &.grandchild {
+    opacity: 0;
+  }
+
+  &.hovered>.label-layer {
+    background-color: var(--highlight-color);
+    color: var(--text-color);
+/*    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);*/
+
+    &::after {
+    padding-left: var(--number-padding-left);
+    color: color-mix(in srgb, var(--text-color) 50%, transparent);
+    }
+
+  }
+
+  &.hovered>.icon-layer>.icon-container {
+    color: var(--text-color)
+  }
+
+
+
+  /* Connectors ----------------------------------------------------------------------- */
+
+.connector {
+  transition: var(--menu-transition);
+  height: var(--connector-width);
+  top: calc(-1 * var(--connector-width) / 2);
+  background: transparent;
+  opacity: 1;
+  border-radius: var(--connector-width);
+  position: relative;
+  overflow: hidden;
+}
+
+.connector::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - (var(--center-size)*1)); /* Adjust how close the connector gets to the icon */
+  height: 100%;
+  background: linear-gradient(to right, color-mix(in srgb, var(--highlight-color) 0%, transparent) 0%, var(--highlight-color) 100%);
+  border-radius: calc(var(--connector-width) / 2);
+  opacity: 1;
+  transition: var(--menu-transition);
+}
+
+  &:has(>.dragged)>.connector,
+  &:has(>.clicked)>.connector {
+    transition: none;
+  }
+
+  &:has(>.parent)>.connector,
+  &:has(>.active)>.connector,
+  &:has(>.dragged)>.connector {
+    opacity: 1;
+  }
+}
+
+/* Center Text ------------------------------------------------------------------------ */
+
+.center-text {
+  display: none;
+}
