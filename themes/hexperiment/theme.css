@@ -1,0 +1,153 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
+/* SPDX-License-Identifier: CC0-1.0 */
+
+/**
+ * This theme is a hexagonal menu with a glowing effect. It is kind of a special theme
+ * because it only works up to 6 items. Also, if you have fewer, you should ensure that
+ * all items are arranged in the six cardinal directions. Otherwise, the menu will look
+ * weird.
+ */
+
+.menu-node {
+  --tile-size: 130px;
+  --tile-offset: calc(var(--tile-size) * 0.5 * 1.732050808);
+  --hexagon: 0% 50%, 25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%;
+  --menu-transition: all 200ms ease;
+
+  transition: var(--menu-transition);
+
+  /* Positioning ---------------------------------------------------------------------- */
+
+  /* Child items are positioned around the active node. */
+  &.child {
+    transform: translate(calc(var(--tile-offset) * var(--dir-x)), calc(var(--tile-offset) * var(--dir-y)));
+  }
+
+  /* Grandchild items are positioned around the child items. */
+  &.grandchild {
+    transform: translate(calc(var(--tile-offset) * var(--dir-x) / 3), calc(var(--tile-offset) * var(--dir-y) / 3));
+  }
+
+  /* Theme Layers --------------------------------------------------------------------- */
+
+  .icon-container {
+    color: var(--text-color);
+    transition: var(--menu-transition);
+    margin: 15%;
+    width: 70% !important;
+    height: 70% !important;
+  }
+
+  .icon-layer,
+  .glow-layer {
+    position: absolute;
+    transition: var(--menu-transition);
+  }
+
+  .icon-layer {
+    clip-path: polygon(var(--hexagon));
+    background-color: var(--background-color);
+  }
+
+  .glow-layer {
+    transform: scale(1.13);
+    filter: drop-shadow(0 0 5px var(--glow-color));
+    z-index: 10;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      mask: url('border.svg') no-repeat center / contain;
+      background: var(--line-color)
+    }
+  }
+
+  &.active>.icon-layer,
+  &.active>.glow-layer {
+    top: calc(-1 * var(--tile-size) / 2);
+    left: calc(-1 * var(--tile-size) / 2);
+    width: var(--tile-size);
+    height: var(--tile-size);
+  }
+
+  &.active>.icon-layer>.icon-container {
+    opacity: 0.2;
+  }
+
+
+  /* Hovered nodes are highlighted. If a child is highlighted, we also highlight all of
+     its grandchildren. If the parent is highlighted, we also highlight all of its non-
+     active children. */
+  &.active.hovered>.icon-layer,
+  &.parent.hovered>.icon-layer,
+  &.parent.hovered>.grandchild>.icon-layer,
+  &.child.hovered .icon-layer {
+    background-color: var(--hover-color);
+  }
+
+
+  /* Child items are displayed around the active node. The parent node of the active
+     node is displayed in a similar style. */
+  &.parent>.icon-layer,
+  &.parent>.glow-layer,
+  &.child>.icon-layer,
+  &.child>.glow-layer {
+    top: calc(-1 * var(--tile-size) / 2);
+    left: calc(-1 * var(--tile-size) / 2);
+    width: var(--tile-size);
+    height: var(--tile-size);
+  }
+
+  &.parent.type-submenu>.icon-layer,
+  &.parent.type-submenu>.glow-layer,
+  &.child.type-submenu>.icon-layer,
+  &.child.type-submenu>.glow-layer,
+  &.grandchild>.icon-layer,
+  &.grandchild>.glow-layer {
+    top: calc(-1 * var(--tile-size) / 6);
+    left: calc(-1 * var(--tile-size) / 6);
+    width: calc(var(--tile-size) / 3);
+    height: calc(var(--tile-size) / 3);
+  }
+
+  /* We disable any transition for dragged items. */
+  &.dragged {
+    transition: none;
+  }
+
+  /* Connectors ----------------------------------------------------------------------- */
+
+  .connector {
+    transition: var(--menu-transition);
+    height: 14px;
+    background: var(--line-color);
+    top: -7px;
+    box-shadow: 0 0 5px var(--line-color), 0 0 15px var(--glow-color);
+  }
+
+  &:has(.dragged)>.connector {
+    transition: none;
+  }
+}
+
+/* Center Text ------------------------------------------------------------------------ */
+
+.center-text {
+  color: var(--text-color);
+  transition: var(--opacity-transition);
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 0 5px var(--glow-color);
+  line-height: 22px;
+}
