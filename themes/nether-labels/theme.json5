@@ -10,10 +10,10 @@
 // SPDX-License-Identifier: CC0-1.0
 
 {
-  name: "Nether Labels",
-  author: "Simon Schneegans, Elfi Ox",
-  license: "CC0-1.0",
-  themeVersion: "1.0",
+  name: 'Nether Labels',
+  author: 'Simon Schneegans, Elfi Ox',
+  license: 'CC0-1.0',
+  themeVersion: '1.0',
 
   // This theme was created for Kando's theme engine version 1. Kando will use this to
   // check if the theme is compatible with the current version of Kando.
@@ -29,19 +29,22 @@
   // These colors can be configured by the user and are vailable in the CSS file as CSS
   // variables. The default values are used if the user does not provide any values.
   colors: {
-    "accent-color": "#D3ADFF",
-    "hover-color": "#D3ADFF",
-    "connector-color": "#D3ADFF",
-    "circle-color": "#131219",
-    "border-color": "#131219",
-    "label-background-color": "#0A0A0A",
-    "text-color": "#FFFFFF",
+    'accent-color': '#D3ADFF',
+    'hover-color': '#D3ADFF',
+    'connector-color': '#D3ADFF',
+    'circle-color' : '#131219',
+    'border-color': '#131219',
+    'label-background-color': '#0A0A0A',
+    'text-color' : '#FFFFFF',
+    'shrinked-outline-color' : '#D3ADFF',
+    'submenu-items-hover-color' : '#D3ADFF',
+    'submenu-items-color' : '#131219',
   },
 
   // This theme uses two layers, one for the icon and the background and one for the arrow
   // which points to the hovered item.
   layers: [
-    { class: "icon-layer", content: "icon" },
-    { class: "label-layer", content: "name" },
+    { class: 'icon-layer', content: 'icon' },
+    { class: 'label-layer', content: 'name' },
   ],
 }

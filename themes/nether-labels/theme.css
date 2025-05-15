@@ -9,29 +9,30 @@
 /* SPDX-FileCopyrightText: Elfi Ox <https://github.com/elfi-ox> */
 /* SPDX-License-Identifier: CC0-1.0 */
 
+@font-face {
+  font-family: 'PlusJakartaSans-Medium';
+  src: url('PlusJakartaSans-Medium.ttf') format('opentype');
+}
+
 .menu-node {
   --child-distance: 80px;
   --grandchild-distance: 16px;
+  --grandchild-size: 13px;
   --center-size: 80px;
   --icon-size: 40px;
   --connector-width: 10px;
-  --menu-transition: transform 200ms ease, opacity 200ms ease;
-  --connector-transition: width 200ms ease, opacity 200ms ease;
-
+  --menu-transition: transform 175ms ease, left 200ms ease, top 200ms ease, width 200ms ease, height 200ms ease, margin 180ms ease, padding 180ms ease, opacity 200ms ease;
+  --connector-transition: width 100ms ease, opacity 200ms ease;
+  --color-transition: background-color 200ms ease, border 60ms ease, color 100ms ease, box-shadow 100ms ease, outline 100ms ease;
 
   transition: var(--menu-transition);
 
   /* Positioning ---------------------------------------------------------------------- */
 
   /* Child items are positioned around the active node. */
-  &.child.type-submenu {
+  &.child {
     transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
         calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
-  }
-
-  &.child:not(.type-submenu) {
-    transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
-        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y))) !important;
   }
 
   /* Grandchild items are positioned around the child items. */
@@ -40,28 +41,45 @@
         calc(var(--grandchild-distance) * var(--dir-y)));
   }
 
+    /* If there is a hovered child node, we scale all children up a bit to create a cool
+     zoom effect. The hovered child itself is scaled up even more. */
+  &.active:has(.hovered)>.child {
+    transform: scale(calc(1.15 - pow(var(--angle-diff) / 180, 0.25) * 0.15)) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y))) ;
+    z-index: 1 !important;
+
+    &.hovered:not(.type-submenu) {
+      z-index: 10 !important;
+      transform: scale(1.15) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+          calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y))) !important;
+    }
+  }
+
   /* Theme Layers --------------------------------------------------------------------- */
 
   /* We hide all icons by default. They will be shown further down in this file for the
      the child items. */
   .icon-container {
     position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
     opacity: 0;
+    width: 100%;
     clip-path: circle(45% at 50% 50%);
     transition: var(--menu-transition);
     color: var(--accent-color);
   }
 
+  &.hovered:not(.parent):not(.level-0)>.icon-layer {
+    padding: 2px;
+  }
+
   .label-layer,
   .icon-layer {
     position: absolute;
-    transition: var(--menu-transition);
+    transition: var(--menu-transition); 
   }
 
   .label-layer {
+    font-family: PlusJakartaSans-Medium;
     opacity: 0;
     background-color: var(--label-background-color);
     color: var(--text-color);
@@ -70,44 +88,57 @@
     height: var(--icon-size);
     border-radius: var(--icon-size);
     top: calc(-1 * var(--icon-size) / 2);
-    padding: calc(var(--icon-size) / 5) calc(var(--icon-size) / 3);
-    font-size: calc(var(--icon-size) / 2.7);
+    padding: calc(var(--icon-size) / 4.6) calc(var(--icon-size) / 3);
+    font-size: calc(var(--icon-size) / 3);
+    transition: var(--color-transition);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
   }
 
   &.hovered>.label-layer {
     color: var(--hover-color);
     border-color: var(--hover-color);
-    box-shadow: 0 0 6px var(--hover-color) inset;
+    box-shadow: 0 0 8px var(--hover-color) inset;
   }
 
   &.right>.label-layer {
     left: calc(-1 * var(--icon-size)/2);
     padding-left: calc(var(--icon-size) + 5px);
+    transition: var(--menu-transition);
   }
 
   &.left>.label-layer {
     right: calc(-1 * var(--icon-size)/2);
     padding-right: calc(var(--icon-size) + 5px);
+    transition: var(--menu-transition);
   }
 
   &.top>.label-layer {
     bottom: calc(0.4 * var(--icon-size));
     top: inherit;
     transform: translateX(-50%);
+    margin-bottom: -5px;
+    transition: var(--menu-transition);
+  }
+  &.hovered.top>.label-layer {
+    margin-bottom: 3px;
   }
 
   &.bottom>.label-layer {
     top: calc(0.4 * var(--icon-size));
     transform: translateX(-50%);
+    margin-top: -5px;
+    transition: var(--menu-transition);
+  }
+  &.hovered.bottom>.label-layer {
+    margin-top: 3px;
   }
 
   .icon-layer {
-    top: calc(-1 * var(--icon-size) / 2);
-    left: calc(-1 * var(--icon-size) / 2);
-    width: var(--icon-size);
-    height: var(--icon-size);
+    top: calc(-0.46 * var(--icon-size));
+    left: calc(-0.46 * var(--icon-size));
+    width: calc(0.92 * var(--icon-size));
+    height: calc(0.92 * var(--icon-size));
     border-radius: 50%;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
     background-color: var(--circle-color);
     z-index: 1;
   }
@@ -117,6 +148,8 @@
     left: calc(-1 * var(--center-size) / 2);
     width: var(--center-size);
     height: var(--center-size);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    transition: var(--menu-transition), var(--color-transition);
   }
 
   &.grandchild>.icon-layer {
@@ -125,10 +158,39 @@
     width: var(--grandchild-size);
     height: var(--grandchild-size);
     box-shadow: none;
+    background-color: var(--submenu-items-color);
+    transition: var(--color-transition), var(--menu-transition);
+  }
+
+  &.hovered>.grandchild>.icon-layer {
+    background-color: var(--submenu-items-hover-color);
+    top: calc(-0.55 * var(--grandchild-size));
+    left: calc(-0.55 * var(--grandchild-size));
+    width: calc(1.1 * var(--grandchild-size));
+    height: calc(1.1 * var(--grandchild-size));
+  }
+
+  &.hovered.type-submenu:has(>.label-layer):not(.level-0)>.icon-layer {
+    outline: 1.8px solid var(--submenu-items-hover-color);
+    transition: var(--color-transition);
+  }
+
+  &.type-submenu.parent:not(.active)>.grandchild>.icon-layer {
+    background-color: var(--shrinked-outline-color);
+    top: calc(-0.55 * var(--grandchild-size));
+    left: calc(-0.55 * var(--grandchild-size));
+    width: calc(1.1 * var(--grandchild-size));
+    height: calc(1.1 * var(--grandchild-size));
+  }
+
+  &.type-submenu.parent:not(.active)>.icon-layer {
+    outline: 1.8px solid var(--shrinked-outline-color);
+    transition: var(--color-transition);
   }
 
   /* The active menu item is the center of the menu. */
   &.child>.label-layer {
+    transition: var(--menu-transition);
     opacity: 1;
   }
 
@@ -136,6 +198,7 @@
   &.active>.icon-layer>.icon-container,
   &.parent>.icon-layer>.icon-container,
   &.child>.icon-layer>.icon-container {
+    transition: var(--menu-transition);
     opacity: 1;
   }
 
@@ -152,7 +215,7 @@
     top: calc(-1 * var(--connector-width) / 2);
     background-color: var(--connector-color);
     opacity: 0;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 
   &:has(>.dragged)>.connector,
