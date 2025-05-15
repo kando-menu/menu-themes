@@ -8,3 +8,11 @@ path = ["*.jpg", "*.png"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Elfi Ox <https://github.com/elfi-ox>"
 SPDX-License-Identifier = "CC0-1.0"
+
+
+# Font from: https://fonts.google.com/specimen/Plus+Jakarta+Sans
+[[annotations]]
+path = ["PlusJakartaSans-Medium.ttf"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = Copyright 2020 The Plus Jakarta Sans Project Authors (https://github.com/tokotype/PlusJakartaSans) 
+SPDX-License-Identifier = "OFL-1.1"
