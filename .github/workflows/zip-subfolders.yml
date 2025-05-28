@@ -19,7 +19,7 @@ jobs:
       - name: Create ZIPs of all subfolders in packages/
         run: |
           mkdir -p zips
-          for dir in packages/*/ ; do
+          for dir in themes/*/ ; do
             name=$(basename "$dir")
             cd "$dir"
             zip -r "../../zips/$name.zip" .
