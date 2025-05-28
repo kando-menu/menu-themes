@@ -1,0 +1,37 @@
+# SPDX-FileCopyrightText: 2025 yar2001T
+# SPDX-License-Identifier: CC0-1.0
+
+name: Auto-Zip Subfolders
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  zip-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create ZIPs of all subfolders in themes/
+        run: |
+          mkdir -p zips
+          cd themes
+          for dir in */ ; do
+            name=${dir%/}
+            zip -r "../zips/$name.zip" "$name"
+          done
+
+      - name: Create GitHub Release (latest)
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+          files: zips/*.zip
+          name: Download menu themes
+          body: |
+            This release contains zipped folders of all available menu themes.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
