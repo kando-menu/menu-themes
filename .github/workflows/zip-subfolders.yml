@@ -30,8 +30,8 @@ jobs:
         with:
           tag_name: latest
           files: zips/*.zip
-          name: Latest Auto Build
+          name: Download menu themes
           body: |
-            This release contains zipped folders from the latest push to main.
+            This release contains zipped folders of all avilable menu themes.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
