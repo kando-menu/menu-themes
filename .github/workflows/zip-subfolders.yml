@@ -32,6 +32,6 @@ jobs:
           files: zips/*.zip
           name: Download menu themes
           body: |
-            This release contains zipped folders of all avilable menu themes.
+            This release contains zipped folders of all available menu themes.
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
