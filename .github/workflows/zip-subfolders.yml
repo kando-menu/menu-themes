@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2025 yar2001T
+# SPDX-License-Identifier: CC0-1.0
+
 name: Auto-Zip Subfolders
 
 on:
