@@ -1,0 +1,33 @@
+name: Auto-Zip Subfolders
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  zip-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create ZIPs of all subfolders in packages/
+        run: |
+          mkdir zips
+          for dir in themes/*/ ; do
+            name=$(basename "$dir")
+            zip -r "zips/$name.zip" "$dir"
+          done
+
+      - name: Create GitHub Release (latest)
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: latest
+          files: zips/*.zip
+          name: Latest Auto Build
+          body: |
+            This release contains zipped folders from the latest push to main.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
