@@ -18,10 +18,12 @@ jobs:
 
       - name: Create ZIPs of all subfolders in packages/
         run: |
-          mkdir zips
-          for dir in themes/*/ ; do
+          mkdir -p zips
+          for dir in packages/*/ ; do
             name=$(basename "$dir")
-            zip -r "zips/$name.zip" "$dir"
+            cd "$dir"
+            zip -r "../../zips/$name.zip" .
+            cd - > /dev/null
           done
 
       - name: Create GitHub Release (latest)
