@@ -76,7 +76,7 @@
   /* Icon container styling with enhanced glow effects */
   .icon-container {
     opacity: 0;
-    color: var(--text-color);
+    color: var(--icon-color);
     transition: var(--opacity-transition);
     text-shadow: 
       0 0 5px var(--glow-color), 
@@ -368,16 +368,16 @@
 /* Center Text ------------------------------------------------------------------------ */
 
 .center-text {
-  color: var(--label-color, var(--text-color)) !important;
+  color: var(--label-color, var(--icon-color)) !important;
   transition: var(--opacity-transition);
   
   /* Enhanced glow effects for center text */
   text-shadow: 
-    0 0 calc(5px * 6) var(--label-glow-color, var(--label-color, var(--text-color))), 
-    0 0 calc(10px * 6) var(--label-glow-color, var(--label-color, var(--text-color))), 
-    0 0 calc(15px * 6) var(--label-glow-color, var(--label-color, var(--text-color))),
-    0 0 calc(25px * 6) var(--label-glow-color, var(--label-color, var(--text-color))),
-    0 0 calc(35px * 6) var(--label-glow-color, var(--label-color, var(--text-color)));
+    0 0 calc(5px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))), 
+    0 0 calc(10px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))), 
+    0 0 calc(15px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))),
+    0 0 calc(25px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))),
+    0 0 calc(35px * 6) var(--label-glow-color, var(--label-color, var(--icon-color)));
   
   font-size: 16px;
   line-height: 22px;
@@ -389,9 +389,9 @@
   
   /* Additional filter effects for enhanced glow */
   filter: 
-    drop-shadow(0 0 calc(10px * 6) var(--label-glow-color, var(--label-color, var(--text-color))))
-    drop-shadow(0 0 calc(20px * 6) var(--label-glow-color, var(--label-color, var(--text-color))))
-    drop-shadow(0 0 calc(30px * 6) var(--label-glow-color, var(--label-color, var(--text-color))));
+    drop-shadow(0 0 calc(10px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))))
+    drop-shadow(0 0 calc(20px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))))
+    drop-shadow(0 0 calc(30px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))));
 }
 
 /* Canvas Background ------------------------------------------------------------------ */
