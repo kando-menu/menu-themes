@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - '*'   # Trigger on any new tag push
+  workflow_dispatch:
 
 jobs:
   zip-and-release:
