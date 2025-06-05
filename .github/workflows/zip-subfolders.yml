@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: yar2000T <https://github.com/yar2000T>
+# SPDX-License-Identifier: CC0-1.0
+
 name: Auto-Zip Subfolders
 
 on:
