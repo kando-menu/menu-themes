@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: yar2000T <https://github.com/yar2000T>
+# SPDX-License-Identifier: CC0-1.0
+
+name: Auto-Zip Subfolders
+
+on:
+  push:
+    tags:
+      - '*'   # Trigger on any new tag push
+  workflow_dispatch:
+
+jobs:
+  zip-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create ZIPs of all subfolders in themes/
+        run: |
+          mkdir -p zips
+          cd themes
+          for dir in */ ; do
+            name=${dir%/}
+            zip -r "../zips/$name.zip" "$name"
+          done
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }} 
+          files: zips/*.zip
+          name: Download menu themes - ${{ github.ref_name }}
+          body: |
+            This release contains zipped folders of all available menu themes for tag ${{ github.ref_name }}.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
