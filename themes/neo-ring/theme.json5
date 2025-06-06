@@ -1,0 +1,68 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//   _  _ ____ _  _ ___  ____                                                           //
+//   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         //
+//   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+// SPDX-FileCopyrightText: 2025 Rena and LCG
+// SPDX-License-Identifier: CC0-1.0
+
+{
+  name: 'Neo Ring',
+  author: 'Rena and LCG',
+  license: 'CC0-1.0',
+  themeVersion: '1.0',
+
+  // This theme was created for Kando's theme engine version 1. Kando will use this to
+  // check if the theme is compatible with the current version of Kando.
+  engineVersion: 1,
+
+  // When a menu is opened too close to a screen's edge, it is moved away from the edge
+  // by this amount of pixels.
+  maxMenuRadius: 160,
+
+  // The width at which the center text is wrapped.
+  centerTextWrapWidth: 90,
+
+  // This theme draws child items below their parent items.
+  drawChildrenBelow: true,
+
+  // These colors can be configured by the user and are available in the CSS file as CSS
+  // variables. The default values are used if the user does not provide any values.
+  colors: {
+    'glow-color': 'rgb(0, 255, 255)',
+    'connector-color': 'rgba(0, 255, 255, 0.8)',
+    'canvas-color': 'rgba(0, 40, 40, 0.6)',
+    'icon-color': 'rgb(0, 255, 255)',
+    'label-color': 'rgb(255, 255, 255)',
+    'label-glow-color': 'rgb(255, 255, 255)'
+  },
+
+  // This theme uses multiple layers to create enhanced neon ring effects.
+  // The layers are rendered in the order specified below, with the first layer
+  // being drawn at the bottom and the last layer at the top.
+  layers: [
+    {
+      // Inner neon ring layer - provides secondary glow effect
+      class: 'inner-neon-ring', 
+      content: 'none'
+    },
+    {
+      // Outer neon ring layer - provides primary glow effect
+      class: 'outer-neon-ring',
+      content: 'none'
+    },
+    {
+      // Icon layer - contains the actual menu item icons
+      class: 'icon-layer',
+      content: 'icon'
+    },
+    {
+      // Arrow layer - provides directional indication for navigation
+      class: 'arrow-layer',
+      content: 'none'
+    }
+  ]
+}
