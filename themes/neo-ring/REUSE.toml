@@ -1,4 +1,5 @@
-# SPDX-FileCopyrightText = ["Simon Schneegans <code@simonschneegans.de>", "2025 Rena and LCG"]
+# SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+# SPDX-FileCopyrightText: 2025 Rena & 小光
 # SPDX-License-Identifier: CC0-1.0
 
 version = 1
@@ -6,11 +7,11 @@ version = 1
 [[annotations]]
 path = ["theme.css", "theme.json5"]
 precedence = "aggregate"
-SPDX-FileCopyrightText = ["Simon Schneegans <code@simonschneegans.de>", "2025 Rena and LCG"]
+SPDX-FileCopyrightText = ["Simon Schneegans <code@simonschneegans.de>", "2025 Rena & 小光"]
 SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = "preview.jpg"
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2025 Rena and LCG"
+SPDX-FileCopyrightText = "2025 Rena & 小光"
 SPDX-License-Identifier = "CC0-1.0"
