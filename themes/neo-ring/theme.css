@@ -1,0 +1,401 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
+/* SPDX-FileCopyrightText: 2025 Rena and LCG */
+/* SPDX-License-Identifier: CC0-1.0 */
+
+/* Neo Ring Theme - Enhanced neon ring effects with glassmorphism background */
+
+@keyframes neon-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+@keyframes neon-hover-pulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+}
+
+.menu-node {
+  --child-distance: 100px;
+  --grandchild-distance: 16px;
+  --grandchild-size: 15px;
+  --center-size: 100px;
+  --child-size: 50px;
+  --connector-width: 3px;
+  --menu-transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --opacity-transition: opacity 300ms ease;
+
+  transition: var(--menu-transition);
+
+  /* Positioning ---------------------------------------------------------------------- */
+
+  /* Child items are positioned around the active node. */
+  &.child {
+    transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+  }
+
+  /* Grandchild items are positioned around the child items. */
+  &.grandchild {
+    transform: translate(calc(var(--grandchild-distance) * var(--dir-x)),
+        calc(var(--grandchild-distance) * var(--dir-y)));
+  }
+
+  /* If there is a hovered child node, we scale all children up a bit to create a cool
+     zoom effect. The hovered child itself is scaled up even more. */
+  &.active:has(>.hovered)>.child {
+    transform: scale(calc(1.15 - pow(var(--angle-diff) / 180, 0.25) * 0.15)) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+
+    &.hovered {
+      transform: scale(1.15) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+          calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+    }
+  }
+
+  /* Theme Layers --------------------------------------------------------------------- */
+
+  /* Icon container styling with enhanced glow effects */
+  .icon-container {
+    opacity: 0;
+    color: var(--icon-color);
+    transition: var(--opacity-transition);
+    text-shadow: 
+      0 0 5px var(--glow-color), 
+      0 0 10px var(--glow-color), 
+      0 0 20px var(--glow-color);
+  }
+
+  /* Layer positioning and basic styling */
+  .arrow-layer,
+  .outer-neon-ring,
+  .inner-neon-ring,
+  .icon-layer {
+    position: absolute;
+    transition: var(--menu-transition);
+  }
+
+  /* Active menu item (center) layer sizing */
+  &.active>.arrow-layer,
+  &.active>.outer-neon-ring,
+  &.active>.inner-neon-ring,
+  &.active>.icon-layer {
+    top: calc(-1 * var(--center-size) / 2);
+    left: calc(-1 * var(--center-size) / 2);
+    width: var(--center-size);
+    height: var(--center-size);
+  }
+
+  /* Child and parent item layer sizing */
+  &.parent>.icon-layer,
+  &.child>.icon-layer {
+    top: calc(-1 * var(--child-size) / 2);
+    left: calc(-1 * var(--child-size) / 2);
+    width: var(--child-size);
+    height: var(--child-size);
+  }
+
+  &.parent>.outer-neon-ring,
+  &.parent>.inner-neon-ring,
+  &.child>.outer-neon-ring,
+  &.child>.inner-neon-ring {
+    top: calc(-1 * var(--child-size) / 2);
+    left: calc(-1 * var(--child-size) / 2);
+    width: var(--child-size);
+    height: var(--child-size);
+  }
+
+  /* Neon Ring Effects ---------------------------------------------------------------- */
+
+  /* Outer neon ring with cyan glow */
+  .outer-neon-ring {
+    opacity: 0;
+    border-radius: 50%;
+    background: transparent;
+    pointer-events: none;
+    z-index: 3;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: calc(100% + 12px);
+      height: calc(100% + 12px);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 2px solid rgb(0, 255, 255);
+      box-shadow: 
+        0 0 10px rgba(0, 255, 255, 0.8),
+        inset 0 0 5px rgba(0, 255, 255, 0.6);
+      animation: neon-pulse 3s ease-in-out infinite;
+    }
+  }
+
+  /* Inner neon ring with magenta glow */
+  .inner-neon-ring {
+    opacity: 0;
+    border-radius: 50%;
+    background: transparent;
+    pointer-events: none;
+    z-index: 2;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      border: 2px solid rgb(255, 0, 128);
+      box-shadow: 
+        0 0 8px rgba(255, 0, 128, 0.8),
+        inset 0 0 4px rgba(255, 0, 128, 0.6);
+      animation: neon-pulse 2.5s ease-in-out infinite;
+    }
+  }
+
+  /* Neon ring visibility logic */
+  &.active>.outer-neon-ring,
+  &.active>.inner-neon-ring,
+  &.child.hovered>.outer-neon-ring,
+  &.child.hovered>.inner-neon-ring,
+  &.parent.hovered>.outer-neon-ring,
+  &.parent.hovered>.inner-neon-ring {
+    opacity: 1;
+  }
+
+  &.child:not(.hovered)>.outer-neon-ring,
+  &.child:not(.hovered)>.inner-neon-ring,
+  &.parent:not(.hovered)>.outer-neon-ring,
+  &.parent:not(.hovered)>.inner-neon-ring {
+    opacity: 0;
+  }
+
+  /* Icon layer - transparent background with enhanced layering */
+  .icon-layer {
+    border-radius: 50%;
+    background: transparent !important;
+    border: none !important;
+    opacity: 1;
+    z-index: 8;
+  }
+
+  /* Arrow layer for directional indication */
+  .arrow-layer {
+    background: var(--glow-color);
+    mask: url(assets/arrow.svg) no-repeat center;
+    mask-size: contain;
+    -webkit-mask: url(assets/arrow.svg) no-repeat center;
+    -webkit-mask-size: contain;
+    transform: scale(1.0) rotate(var(--hovered-child-angle));
+    opacity: 0;
+    filter: drop-shadow(0 0 5px var(--glow-color));
+    z-index: 9;
+  }
+
+  /* Hover Effects -------------------------------------------------------------------- */
+
+  /* Enhanced scaling effects on hover */
+  &.child.hovered>.icon-layer {
+    transform: scale(2.0) !important;
+    z-index: 15 !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  &.parent.hovered>.icon-layer {
+    transform: scale(2.0) !important;
+    z-index: 15 !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  &.active.hovered>.icon-layer {
+    transform: scale(1.1) !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Enhanced neon ring effects on hover */
+  &.child.hovered>.outer-neon-ring::before,
+  &.parent.hovered>.outer-neon-ring::before {
+    border-width: 4px !important;
+    width: calc(200% + 32px) !important;
+    height: calc(200% + 32px) !important;
+    animation: neon-hover-pulse 1.5s ease-in-out infinite !important;
+    box-shadow: 
+      0 0 25px rgba(0, 255, 255, 1.0),
+      inset 0 0 15px rgba(0, 255, 255, 0.8) !important;
+  }
+
+  &.child.hovered>.inner-neon-ring::before,
+  &.parent.hovered>.inner-neon-ring::before {
+    border-width: 4px !important;
+    width: calc(200% + 16px) !important;
+    height: calc(200% + 16px) !important;
+    animation: neon-hover-pulse 1.3s ease-in-out infinite !important;
+    box-shadow: 
+      0 0 20px rgba(255, 0, 128, 1.0),
+      inset 0 0 12px rgba(255, 0, 128, 0.8) !important;
+  }
+
+  /* Center item hover effects */
+  &.active.hovered>.outer-neon-ring::before {
+    border-width: 3px !important;
+    width: calc(100% + 16px) !important;
+    height: calc(100% + 16px) !important;
+    animation: neon-pulse 2s ease-in-out infinite !important;
+    box-shadow: 
+      0 0 18px rgba(0, 255, 255, 1.0),
+      inset 0 0 10px rgba(0, 255, 255, 0.8) !important;
+  }
+
+  &.active.hovered>.inner-neon-ring::before {
+    border-width: 3px !important;
+    width: calc(100% + 8px) !important;
+    height: calc(100% + 8px) !important;
+    animation: neon-pulse 1.8s ease-in-out infinite !important;
+    box-shadow: 
+      0 0 15px rgba(255, 0, 128, 1.0),
+      inset 0 0 8px rgba(255, 0, 128, 0.8) !important;
+  }
+
+  /* Default pulsing animation for non-hovered center items */
+  &.active:not(.hovered)>.outer-neon-ring::before {
+    animation: neon-pulse 3s ease-in-out infinite !important;
+  }
+
+  &.active:not(.hovered)>.inner-neon-ring::before {
+    animation: neon-pulse 2.5s ease-in-out infinite !important;
+  }
+
+  /* Arrow Display Logic -------------------------------------------------------------- */
+
+  &.active:has(.hovered)>.arrow-layer {
+    opacity: 1;
+    transform: scale(1.8) rotate(var(--hovered-child-angle));
+  }
+
+  &:has(.dragged)>.arrow-layer {
+    transform: scale(1.8) rotate(var(--pointer-angle));
+    transition: none;
+  }
+
+  &.active:has(.hovered.dragged)>.arrow-layer {
+    transform: scale(1.8) rotate(var(--pointer-angle));
+  }
+
+  /* Icon Visibility Logic ------------------------------------------------------------ */
+
+  /* Hide center icon when text label is present */
+  &.active>.icon-layer>.icon-container {
+    opacity: 0 !important;
+  }
+
+  /* Show icons for parent and child items */
+  &.parent>.icon-layer>.icon-container,
+  &.child>.icon-layer>.icon-container {
+    opacity: 1;
+  }
+
+  /* Click Effects -------------------------------------------------------------------- */
+
+  &.parent.hovered.clicked>.icon-layer,
+  &.child.hovered.clicked>.icon-layer {
+    transform: scale(0.85);
+  }
+
+  /* Grandchild Items ----------------------------------------------------------------- */
+
+  &.grandchild>.icon-layer {
+    top: calc(-1 * var(--grandchild-size) / 2);
+    left: calc(-1 * var(--grandchild-size) / 2);
+    width: var(--grandchild-size);
+    height: var(--grandchild-size);
+    opacity: 0;
+  }
+
+  /* Disable transitions for dragged items */
+  &.dragged {
+    transition: none;
+  }
+
+  /* Connectors ----------------------------------------------------------------------- */
+
+  .connector {
+    transition: var(--menu-transition);
+    height: var(--connector-width);
+    top: calc(-1 * var(--connector-width) / 2);
+    background: linear-gradient(to right, 
+      transparent 60px, 
+      rgba(0, 255, 255, 0.2) 45%, 
+      var(--connector-color) 50%, 
+      rgba(0, 255, 255, 0.2) 55%, 
+      transparent calc(100% - 60px));
+    box-shadow: 
+      0 0 6px rgba(0, 255, 255, 0.4),
+      0 0 12px rgba(0, 255, 255, 0.2);
+    border-radius: 2px;
+  }
+
+  &:has(.dragged)>.connector,
+  &:has(.clicked)>.connector {
+    transition: none;
+  }
+}
+
+/* Center Text ------------------------------------------------------------------------ */
+
+.center-text {
+  color: var(--label-color, var(--icon-color)) !important;
+  transition: var(--opacity-transition);
+  
+  /* Enhanced glow effects for center text */
+  text-shadow: 
+    0 0 calc(5px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))), 
+    0 0 calc(10px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))), 
+    0 0 calc(15px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))),
+    0 0 calc(25px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))),
+    0 0 calc(35px * 6) var(--label-glow-color, var(--label-color, var(--icon-color)));
+  
+  font-size: 16px;
+  line-height: 22px;
+  font-family: 'Courier New', monospace;
+  font-weight: 900;
+  letter-spacing: 1px;
+  overflow: visible;
+  z-index: 20;
+  
+  /* Additional filter effects for enhanced glow */
+  filter: 
+    drop-shadow(0 0 calc(10px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))))
+    drop-shadow(0 0 calc(20px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))))
+    drop-shadow(0 0 calc(30px * 6) var(--label-glow-color, var(--label-color, var(--icon-color))));
+}
+
+/* Canvas Background ------------------------------------------------------------------ */
+
+#kando-menu {
+  background-color: var(--canvas-color) !important;
+}
