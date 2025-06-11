@@ -1,13 +1,12 @@
 # SPDX-FileCopyrightText: yar2000T <https://github.com/yar2000T>
 # SPDX-License-Identifier: CC0-1.0
 
-name: Auto-Zip Subfolders
+name: Deploy
 
 on:
   push:
     tags:
-      - '*'   # Trigger on any new tag push
-  workflow_dispatch:
+      - "**"
 
 jobs:
   zip-and-release:
@@ -15,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Create ZIPs of all subfolders in themes/
         run: |
@@ -27,12 +26,13 @@ jobs:
           done
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2.3.2
         with:
-          tag_name: ${{ github.ref_name }} 
+          tag_name: ${{ github.ref_name }}
           files: zips/*.zip
-          name: Download menu themes - ${{ github.ref_name }}
+          name: Kando Menu Themes - ${{ github.ref_name }}
           body: |
-            This release contains zipped folders of all available menu themes for tag ${{ github.ref_name }}.
+            Zipped menu theme folders of all available menu themes for tag ${{ github.ref_name }}.
+          prerelease: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
