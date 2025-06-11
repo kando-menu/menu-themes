@@ -17,7 +17,7 @@ This repository contains additional themes that you can use with Kando.
 You can easily [create your own theme](https://kando.menu/create-menu-themes/)!
 If you created something cool, feel free to share it with the community by opening a pull request.
 
-To install a theme, simply download this repository and copy the directory of the theme you want to use into the `menu-themes` directory of your Kando installation.
+**To install a theme, simply download it and unzip it into the `menu-themes` directory of your Kando installation.**
 Depending on your platform, the `menu-themes` directory is located at:
 
 - <img height="14" width="26" src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Windows_logo_-_2021_%28Black%29.svg" /> Windows: `%appdata%\kando\menu-themes\`
