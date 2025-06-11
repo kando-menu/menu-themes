@@ -33,7 +33,6 @@ jobs:
         with:
           tag_name: ${{ github.ref_name }}
           files: zips/*.zip
-          name: Kando Menu Themes - ${{ github.ref_name }}
+          name: Kando Menu Themes ${{ github.ref_name }}
           body: |
-            Zipped menu theme folders of all available menu themes for tag ${{ github.ref_name }}.
-          prerelease: true
+            Zipped menu theme folders of all available menu themes.
