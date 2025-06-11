@@ -8,6 +8,9 @@ on:
     tags:
       - "**"
 
+permissions:
+  contents: write
+
 jobs:
   zip-and-release:
     runs-on: ubuntu-latest
@@ -34,5 +37,3 @@ jobs:
           body: |
             Zipped menu theme folders of all available menu themes for tag ${{ github.ref_name }}.
           prerelease: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
