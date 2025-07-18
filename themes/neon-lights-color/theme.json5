@@ -1,0 +1,91 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//   _  _ ____ _  _ ___  ____                                                           //
+//   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         //
+//   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+// SPDX-FileCopyrightText: 2025 Rena and LCG
+// SPDX-License-Identifier: CC0-1.0
+
+{
+  "name": "neon-lights-color",
+  "author": "Rena and LCG", 
+  "license": "CC0-1.0",
+  "themeVersion": "3.0",
+  "engineVersion": 1,
+  "maxMenuRadius": 160,
+  "centerTextWrapWidth": 160,
+  "drawChildrenBelow": true,
+  "colors": {
+    // === 🎯 Icon System (5 options) ===
+    "icon-color": "rgba(255, 255, 255, 0.95)",        // Base icon color
+    "icon-glow": "rgb(255, 140, 210)",                 // Icon glow effect
+    "icon-hover": "rgba(255, 255, 140, 1.0)",         // Icon color on hover
+    "icon-hover-glow": "rgb(255, 255, 140)",          // Icon glow on hover
+    
+    // === 🔤 Text System (2 options) ===
+    "text-color": "rgba(255, 255, 255, 0.95)",        // Center text color
+    "text-glow": "rgb(255, 140, 210)",                 // Text glow effect
+    
+    // === 🌈 Ring Glow System (3 options) ===
+    "primary-glow": "rgb(255, 140, 210)",              // Primary neon ring color
+    "secondary-glow": "rgb(140, 200, 255)",            // Secondary neon ring color
+    "accent-glow": "rgb(255, 255, 140)",               // Accent glow (arrows, etc.)
+    
+    // === 🌟 Rotating Ring System (3 options) ===
+    "ring-inner": "rgb(255, 255, 255)",               // Rotating ring inner color
+    "ring-slow": "rgb(120, 120, 120)",                // Slow rotating ring color
+    "ring-fast": "rgb(255, 140, 210)",                // Fast rotating ring color
+    
+    // === ⚡ Connector System (5 options) ===
+    "connector-color": "rgba(255, 140, 210, 0.4)",    // Connector base color (track)
+    "connector-center": "rgba(255, 200, 255, 0.75)",  // Connector center color
+    "connector-edge": "rgba(255, 140, 210, 0.3)",     // Connector edge color
+    "connector-glow": "rgba(255, 140, 210, 0.5)",     // Connector glow effect
+    "connector-hover-glow": "rgb(255, 255, 140)",     // Connector glow on hover
+    
+    // === 🎭 Interaction State System (2 options) ===
+    "hover-glow": "rgb(255, 255, 140)",               // Hover glow effect
+    "active-glow": "rgb(140, 255, 140)",              // Active glow effect
+    
+    // === 🌃 Background System (2 options) ===
+    "canvas-color": "rgba(10, 10, 20, 0.8)",          // Main background color
+    "backdrop-shadow": "rgba(0, 0, 0, 0.6)"           // Background shadow effect
+  },
+  "layers": [
+    {
+      "type": "canvas",
+      "color": "#0a0a14cc"
+    },
+    {
+      "class": "inner-glow-ring",
+      "content": "none"
+    },
+    {
+      "class": "outer-glow-ring", 
+      "content": "none"
+    },
+    {
+      "class": "icon-layer",
+      "content": "icon"
+    },
+    {
+      "class": "icon-glow-layer",
+      "content": "icon"
+    },
+    {
+      "class": "ring-fast-layer",
+      "content": "none"
+    },
+    {
+      "class": "ring-slow-layer",
+      "content": "none"
+    },
+    {
+      "class": "arrow-layer",
+      "content": "none"
+    }
+  ]
+}
