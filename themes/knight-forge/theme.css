@@ -4,12 +4,13 @@
 
 @font-face {
   font-family: 'ProtoNerdPropo-Regular';
-  src: url(0xProtoNerdFontPropo-Regular);
+  src: url('0xProtoNerdFontPropo-Regular.otf');
 }
 
 #kando-menu {
 
   .menu-node {
+	color: transparent;
     --child-distance: 100px;
     --child-size: 60px;
 
@@ -32,6 +33,19 @@
           calc(var(--fade-distance) * var(--dir-y)));
     }
 
+
+  /* If there is a hovered child node, we scale all children up a bit to create a cool
+	 zoom effect. The hovered child itself is scaled up even more. */
+  &.active:has(.hovered)>.child {
+	transform: scale(calc(1.15 - pow(var(--angle-diff) / 180, 0.25) * 0.15)) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+		calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+
+	&.hovered {
+	  transform: scale(1.15) translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+		  calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+	}
+  }
+  
     .icon-container {
       color: var(--text-color);
       margin: 10px;
@@ -54,7 +68,7 @@
       height: var(--child-size);
       background-image: url('icon.png');
       background-size: contain;
-      image-rendering: pixelated;
+      image-rendering: high-quality;
     }
 
     &.grandchild>.icon-layer {
@@ -67,6 +81,7 @@
     &.parent.hovered>.icon-layer,
     &.child.hovered>.icon-layer {
       background-image: url('icon-highlight.png');
+	  image-rendering: high-quality;
     }
 
     &.grandchild {
@@ -87,7 +102,7 @@
       border-image: url('connector.png');
       border-image-slice: 5 60 5 60;
       border-image-repeat: round;
-      image-rendering: pixelated;
+      image-rendering: high-quality;
 
       opacity: 0;
     }
