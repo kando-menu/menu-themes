@@ -4,7 +4,7 @@
 {
   name: "KnightForge",
   author: "yar2000T",
-  license: "CC0-1.0",
+  license: "CC-BY-4.0",
   themeVersion: "1.0",
 
   engineVersion: 1,
@@ -15,9 +15,15 @@
 
   drawChildrenBelow: true,
 
+  drawSelectionWedges: true,
+  
   colors: {
     "text-color": "rgb(255, 255, 255)",
+	"wedge-highlight-color": "rgba(0, 0, 0, 0.1)",
+    "wedge-color": "rgba(0, 0, 0, 0.2)",
   },
 
-  layers: [{ class: "icon-layer", content: "icon" }],
+  layers: [{ class: "icon-layer", content: "icon" },
+		   { class: 'label-layer', content: 'name' },
+  ],
 }
