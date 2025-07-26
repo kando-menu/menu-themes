@@ -1,0 +1,69 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//   _  _ ____ _  _ ___  ____                                                           //
+//   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         //
+//   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+// SPDX-FileCopyrightText: 2025 Rena and LCG
+// SPDX-License-Identifier: CC0-1.0
+
+{
+  name: 'Navigation',
+  author: 'Rena and LCG',
+  license: 'CC0-1.0',
+  themeVersion: '6.4',
+  description: 'Modern minimalist ring navigation theme, v6.4: Simplified sector effects, retaining core highlights and internal glow',
+
+  engineVersion: 1,
+
+  maxMenuRadius: 180,
+  centerTextWrapWidth: 160,
+  drawChildrenBelow: true,
+  childTransitionTime: 200,
+
+  colors: {
+    // === 🔤 Text Color Configuration ===
+    'text-color': 'rgb(255 255 255 / 0.9)',             // Center text main color - user optimized value
+    'text-glow': 'rgb(255 255 255 / 0.5)',              // Text glow effect - user optimized value
+    'text-glow-outer': 'rgb(85 85 85 / 0.3)',           // Text outer glow - user set to gray tone
+
+    // === 🎨 Icon Color Configuration ===
+    'icon-color': 'rgb(255 255 255 / 0.9)',             // Icon base color - user optimized value
+    'icon-hover-color': 'rgb(255 255 255 / 1.0)',         // Icon color on hover - ✅ completely effective, restored normal white
+    'icon-glow': 'rgb(255 255 255 / 0.5)',              // Icon glow effect - user optimized value
+    'icon-glow-outer': 'rgba(255, 255, 255, 0.3)',      // Icon outer glow - keep original default value
+
+    // === ⭕ Ring Color Configuration ===
+    'ring-color': 'rgb(71 71 71 / 0.34)',               // Ring main color - user set dark gray
+    'ring-glow': 'rgba(255, 255, 255, 0.3)',            // Ring main glow - keep original default value
+    'ring-glow-inner': 'rgb(212 212 212 / 0.25)',       // Ring inner glow - user set light gray
+    'ring-glow-outer': 'rgba(255, 255, 255, 0.4)',      // Ring outer glow - keep original default value
+    'ring-inner-hole-glow': 'rgb(254 254 254 / 0.2)',   // Ring inner void glow - user optimized value
+    'ring-inner-hole-glow-inner': 'rgb(255 255 255 / 0.3)', // Void inner glow - user optimized value
+    'ring-inner-hole-glow-outer': 'rgba(255, 255, 255, 0.1)', // Void outer glow - keep original default value
+
+    // === 🎯 Sector Highlight Configuration ===
+    'sector-highlight': 'rgb(34 104 234 / 0.6)',        // Sector highlight main color - user set blue tone
+    'sector-inner-glow': 'rgb(42 235 199 / 0.86)',      // Sector inner glow - user set cyan high opacity
+
+    // === 🔗 Parent Indicator Configuration ===
+    'parent-indicator-color': 'rgba(255, 255, 255, 0.8)', // Parent arrow color - keep original default value
+    'parent-indicator-glow': 'rgba(255, 255, 255, 0.4)',  // Arrow glow effect - keep original default value
+
+    // === 🌫️ Background Configuration ===
+    'canvas-bg': 'rgba(0, 0, 0, 0)',                     // Canvas background overlay - fully transparent, let dual background layers show completely
+
+    // === 🌈 New: Dual Background Layer Configuration ===
+    'background-layer-left': 'rgba(255, 255, 255, 1.0)',  // Left half screen background layer - pure white
+    'background-layer-right': 'rgba(0, 0, 0, 1.0)'        // Right half screen background layer - pure black
+  },
+
+  layers: [
+    {
+      class: 'icon-layer',
+      content: 'icon'
+    }
+  ]
+}
