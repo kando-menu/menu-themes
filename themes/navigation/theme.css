@@ -477,46 +477,21 @@ body::after {
   /* ✅ No longer force override color and transform, allow .hovered effect to work normally */
 }
 
-/* === 🔤 Center Text Standard Configuration === */
+/* === 🔤 Center Text Minimal Configuration for Kando 2.0 === */
 .center-text {
-  font-size: 22px !important;
-  line-height: 26px !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.3px !important;
+  /* 🎯 Only essential visual properties - let Kando 2.0 handle all sizing and layout */
+  color: var(--text-color);
   
-  max-width: 160px !important;
-  min-width: 120px !important;
-  max-height: 60px !important;
-  
-  word-wrap: break-word !important;
-  word-break: break-all !important;
-  white-space: normal !important;
-  text-align: center !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 6px 8px !important;
-  
-  color: var(--text-color) !important;
-  
-  /* 🌟 Center text glow effect */
+  /* 🌟 Center text glow effect - preserved visual identity */
   text-shadow: 
-    /* Basic shadow */
     0 1px 2px rgba(0, 0, 0, 0.5),
-    /* Main glow */
     0 0 4px var(--text-glow),
     0 0 8px var(--text-glow),
     0 0 12px var(--text-glow),
-    /* Outer diffuse glow */
     0 0 16px var(--text-glow-outer),
-    0 0 24px var(--text-glow-outer),
-    0 0 32px var(--text-glow-outer) !important;
+    0 0 24px var(--text-glow-outer);
   
-  transition: var(--menu-transition) !important;
+  /* 🎯 Keep z-index for layering */
   z-index: 20;
 }
 
