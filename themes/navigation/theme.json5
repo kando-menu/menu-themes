@@ -19,7 +19,7 @@
   engineVersion: 1,
 
   maxMenuRadius: 180,
-  centerTextWrapWidth: 160,
+  centerTextWrapWidth: 140,  // Precisely matches inner circle diameter (70px radius × 2)
   drawChildrenBelow: true,
   childTransitionTime: 200,
 
