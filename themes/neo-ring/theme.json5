@@ -18,7 +18,7 @@
   // This theme was created for Kando's theme engine version 1. Kando will use this to
   // check if the theme is compatible with the current version of Kando.
   engineVersion: 1,
-
+	
   // When a menu is opened too close to a screen's edge, it is moved away from the edge
   // by this amount of pixels.
   maxMenuRadius: 160,
@@ -29,6 +29,9 @@
   // This theme draws child items below their parent items.
   drawChildrenBelow: true,
 
+  // Draw the thin lines between adjacent menu items.
+  drawSelectionWedges: true,
+  
   // These colors can be configured by the user and are available in the CSS file as CSS
   // variables. The default values are used if the user does not provide any values.
   colors: {
