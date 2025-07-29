@@ -1,0 +1,678 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+
+/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
+/* SPDX-FileCopyrightText: 2025 Rena and LCG */
+/* SPDX-License-Identifier: CC0-1.0 */
+
+/* 🧭 Navigation Theme - Modern minimalist ring navigation theme */
+/* 🔧 v6.4: Simplified sector effects, removed sector-glow, retained core visuals */
+
+/* === 🌈 New: Dual Background Layer System === */
+/* 🌟 Left half screen background layer */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--background-layer-left);
+  pointer-events: none;
+  z-index: -10;
+}
+
+/* 🌟 Right half screen background layer */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  background: var(--background-layer-right);
+  pointer-events: none;
+  z-index: -10;
+}
+
+/* === 🎨 Canvas Gradient Background === */
+#kando-menu canvas {
+  background: linear-gradient(135deg, 
+    #8B5CF6 0%,       /* Blue-purple */
+    #A855F7 20%,      /* Purple */
+    #EC4899 40%,      /* Pink */
+    #F97316 60%,      /* Orange */
+    #EAB308 80%,      /* Yellow */
+    #F59E0B 100%      /* Golden yellow */
+  ) !important;
+  
+  /* Disable all transition animations */
+  transition: none !important;
+}
+
+/* === 🎯 Menu Container Position Control: Disable Position Movement Animation === */
+/* Solution: Disable unnecessary position movement animations when returning from submenu to parent */
+#kando-menu {
+  /* 🚫 Disable menu container position movement animation, implementing "jump" instead of "move" */
+  transition: none !important;
+}
+
+/* 🔧 More precise control: disable main menu node position animations */
+.menu-node.active {
+  /* 🚫 Disable menu node position movement animation */
+  transition: none !important;
+}
+
+/* 🔧 Globally disable menu node transform animations (except child icons) */
+.menu-node:not(.child) {
+  /* 🚫 Disable transform animations for non-child icons */
+  transition: none !important;
+}
+
+/* === 🎨 Background Color Overlay === */
+#kando-menu::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--canvas-bg);
+  pointer-events: none;
+  z-index: -1;
+  
+  /* Disable all transition animations */
+  transition: none !important;
+}
+
+/* === 📐 Core Layout Parameters === */
+.menu-node {
+  --child-distance: 110px;           /* Ring center radius - compact for tighter icon spacing */
+  --child-size: 60px;                /* Icon container size */
+  --ring-inner-radius: 70px;         /* Ring inner radius - continue shrinking for thick ring */
+  --ring-outer-radius: 150px;        /* Ring outer radius */
+  --ring-width: 80px;                /* Ring width - continue increasing for thick ring */
+  --menu-transition: transform 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  /* 🚫 Default disable menu node transform animations (child icons will be overridden separately) */
+  transition: none !important;
+}
+
+/* === 🎯 Submenu Icon Layout === */
+.menu-node.child {
+  /* Ring position - ensure icons are on ring centerline */
+  transform: translate(
+    calc(var(--child-distance) * var(--dir-x)),
+    calc(var(--child-distance) * var(--dir-y))
+  ) !important;
+  
+  /* ✅ Maintain icon expand animation (override to ensure priority) - Natural sway: like falling leaves natural sway */
+  transition: transform 400ms cubic-bezier(0.23, 1, 0.32, 1.2) !important;
+}
+
+/* === 🎨 Icon Layer Styles === */
+.menu-node .icon-layer {
+  position: absolute;
+  border-radius: 50%;
+  transition: var(--menu-transition);
+  background: transparent;
+}
+
+/* === 🕳️ Center Area - Complete Void === */
+.menu-node.active > .icon-layer {
+  background: transparent;
+  width: 0;
+  height: 0;
+  top: 0;
+  left: 0;
+}
+
+/* === ⭕ Submenu Icon Container === */
+.menu-node.child > .icon-layer {
+  /* 🔧 Fix 1: Precise center alignment */
+  top: calc(-1 * var(--child-size) / 2);
+  left: calc(-1 * var(--child-size) / 2);
+  width: var(--child-size);
+  height: var(--child-size);
+  background: transparent;
+  position: relative;
+  z-index: 10;
+  
+  /* 🎯 Ensure transform center point is at geometric center */
+  transform-origin: center center;
+}
+
+/* === 🎯 Sector Highlight Background - 🔧 Layered Solution === */
+/* 🌌 Glow layer - below sector, responsible for sector-glow effect */
+.menu-node.child.hovered::after {
+  content: '';
+  position: absolute;
+  
+  /* Same position and size as sector */
+  top: calc(-1 * var(--ring-outer-radius) - var(--child-distance) * var(--dir-y));
+  left: calc(-1 * var(--ring-outer-radius) - var(--child-distance) * var(--dir-x));
+  width: calc(var(--ring-outer-radius) * 2);
+  height: calc(var(--ring-outer-radius) * 2);
+  
+  border-radius: 50%;
+  background: transparent;
+  
+  /* 🌟 Glow layer has removed sector-glow effect */
+  /* Preserve basic structure for future expansion */
+  opacity: 0;
+  
+  z-index: 4; /* Below sector */
+  pointer-events: none;
+  transform-origin: center;
+  transition: opacity 200ms ease-out;
+  
+  /* Use same mask to cut into sector shape, but glow will overflow */
+  mask: 
+    radial-gradient(circle at center, transparent calc(var(--ring-inner-radius) - 1px), black var(--ring-inner-radius)),
+    conic-gradient(from calc(var(--angle) - 22.5deg), black 0deg, black 45deg, transparent 45deg);
+  mask-composite: intersect;
+  -webkit-mask: 
+    radial-gradient(circle at center, transparent calc(var(--ring-inner-radius) - 1px), black var(--ring-inner-radius)),
+    conic-gradient(from calc(var(--angle) - 22.5deg), black 0deg, black 45deg, transparent 45deg);
+  -webkit-mask-composite: source-in;
+}
+
+/* 🎯 Sector main body - responsible for precise sector shape and background color */
+.menu-node.child.hovered::before {
+  content: '';
+  position: absolute;
+  
+  /* 🔧 Key fix: correctly calculate sector position, ensure concentric with ring */
+  /* From each child position, offset back to menu center, then position sector */
+  top: calc(-1 * var(--ring-outer-radius) - var(--child-distance) * var(--dir-y));
+  left: calc(-1 * var(--ring-outer-radius) - var(--child-distance) * var(--dir-x));
+  
+  width: calc(var(--ring-outer-radius) * 2);
+  height: calc(var(--ring-outer-radius) * 2);
+  
+  /* 🌨️ Sector background and inner glow effect */
+  background: var(--sector-highlight);
+  
+  /* 🌟 Only preserve inner glow, outer glow handled by ::after layer */
+  box-shadow: 
+    /* Inner glow - using sector-inner-glow */
+    inset 0 0 15px var(--sector-inner-glow),
+    inset 0 0 30px var(--sector-inner-glow),
+    inset 0 0 45px var(--sector-inner-glow),
+    inset 0 0 60px var(--sector-inner-glow),
+    inset 0 0 75px var(--sector-inner-glow);
+  
+  border-radius: 50%;
+  z-index: 5;  /* 🔧 Restore normal level, sector-glow verified effective */
+  pointer-events: none;
+  
+  /* Transform center point */
+  transform-origin: center;
+  
+  /* Add animation transition - modified to 200ms sync */
+  transition: opacity 200ms ease-out;
+  
+  /* Create sector: use mask to hollow inner circle and limit angle - ✅ Sector main body restore mask */
+  mask: 
+    /* Outer circle - precisely match ring inner radius, no gap */
+    radial-gradient(circle at center, transparent calc(var(--ring-inner-radius) - 1px), black var(--ring-inner-radius)),
+    /* Sector angle limit - solid sector */
+    conic-gradient(from calc(var(--angle) - 22.5deg), black 0deg, black 45deg, transparent 45deg);
+  mask-composite: intersect;
+  -webkit-mask: 
+    radial-gradient(circle at center, transparent calc(var(--ring-inner-radius) - 1px), black var(--ring-inner-radius)),
+    conic-gradient(from calc(var(--angle) - 22.5deg), black 0deg, black 45deg, transparent 45deg);
+  -webkit-mask-composite: source-in;
+}
+
+/* 🌟 Enhanced glow effect on hover - precise control version */
+.menu-node.child.hovered:hover::before {
+  /* Enhanced glow on hover, expand inner glow range to middle position */
+  box-shadow: 
+    /* Enhanced inner glow - sector-inner-glow, greatly expanded range */
+    inset 0 0 12px var(--sector-inner-glow),
+    inset 0 0 24px var(--sector-inner-glow),
+    inset 0 0 36px var(--sector-inner-glow),
+    inset 0 0 48px var(--sector-inner-glow),
+    inset 0 0 60px var(--sector-inner-glow),
+    inset 0 0 72px var(--sector-inner-glow),
+    inset 0 0 84px var(--sector-inner-glow);
+  
+  opacity: 0.9;
+}
+
+/* 🚑 Fix: immediately hide sector highlight when not hovering */
+.menu-node.child:not(.hovered)::before {
+  display: none !important;
+}
+
+/* === 🔵 Ring Background - 🌟 Add Multi-layer Glow Effects === */
+.menu-node.active::after {
+  content: '';
+  position: absolute;
+  
+  /* 🔧 Fix 4: Ring position precisely centered */
+  top: calc(-1 * var(--ring-outer-radius));
+  left: calc(-1 * var(--ring-outer-radius));
+  width: calc(var(--ring-outer-radius) * 2);
+  height: calc(var(--ring-outer-radius) * 2);
+  
+  border-radius: 50%;
+  background: var(--ring-color);
+  
+  /* 🌟 Ring inner glow effect (only preserve inset) */
+  box-shadow: 
+    /* Inner glow - soft glow along ring inner edge */
+    inset 0 0 8px var(--ring-glow-inner),
+    inset 0 0 16px var(--ring-glow-inner),
+    inset 0 0 24px var(--ring-glow-inner);
+  
+  z-index: -2; /* Ensure ring body is below icons */
+  pointer-events: none;
+  
+  /* ✅ Enable ring body ripple effect - expanding from center outward */
+  transition: transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  animation: ring-ripple-expand 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  
+  /* 🔧 Fix 5: Ensure transform center point is precisely centered */
+  transform-origin: 50% 50%;
+  
+  /* Use mask to hollow inner circle creating ring */
+  mask: radial-gradient(circle at center, transparent var(--ring-inner-radius), black calc(var(--ring-inner-radius) + 1px));
+  -webkit-mask: radial-gradient(circle at center, transparent var(--ring-inner-radius), black calc(var(--ring-inner-radius) + 1px));
+}
+
+/* 🌟 Ring outer glow effect - separate element to avoid mask interference */
+.menu-node.active::before {
+  content: '';
+  position: absolute;
+  
+  /* Same position and size as ring */
+  top: calc(-1 * var(--ring-outer-radius));
+  left: calc(-1 * var(--ring-outer-radius));
+  width: calc(var(--ring-outer-radius) * 2);
+  height: calc(var(--ring-outer-radius) * 2);
+  
+  border-radius: 50%;
+  background: transparent;
+  
+  /* 🌟 Main glow and outer diffuse glow - not affected by mask */
+  box-shadow: 
+    /* Main glow - primary glow effect around ring */
+    0 0 6px var(--ring-glow),
+    0 0 12px var(--ring-glow),
+    0 0 18px var(--ring-glow),
+    0 0 24px var(--ring-glow),
+    
+    /* Outer diffuse glow - greatly enhanced visibility */
+    0 0 40px var(--ring-glow-outer),
+    0 0 60px var(--ring-glow-outer),
+    0 0 80px var(--ring-glow-outer),
+    0 0 120px var(--ring-glow-outer);
+  
+  z-index: -3; /* Below ring body */
+  pointer-events: none;
+  
+  /* ✅ Ring outer glow ripple effect animation - synchronized expansion with ring body */
+  transition: transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  animation: ring-ripple-glow-expand 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  
+  transform-origin: 50% 50%;
+}
+
+/* 🍳 Ring inner hole glow effect - new element */
+.menu-node.active > .icon-layer::before {
+  content: '';
+  position: absolute;
+  
+  /* Inner hole position and size */
+  top: calc(-1 * var(--ring-inner-radius));
+  left: calc(-1 * var(--ring-inner-radius));
+  width: calc(var(--ring-inner-radius) * 2);
+  height: calc(var(--ring-inner-radius) * 2);
+  
+  border-radius: 50%;
+  background: transparent;
+  
+  /* 🌟 Ring inner hole multi-layer glow effect - converging toward center */
+  box-shadow: 
+    /* Inner glow - main effect converging from edge to center */
+    inset 0 0 8px var(--ring-inner-hole-glow),
+    inset 0 0 16px var(--ring-inner-hole-glow),
+    inset 0 0 24px var(--ring-inner-hole-glow),
+    inset 0 0 32px var(--ring-inner-hole-glow),
+    
+    /* Inner glow depth enhancement - enhance center convergence effect */
+    inset 0 0 40px var(--ring-inner-hole-glow-inner),
+    inset 0 0 50px var(--ring-inner-hole-glow-inner),
+    inset 0 0 60px var(--ring-inner-hole-glow-inner),
+    
+    /* Slight outer boundary glow - only at edge position */
+    0 0 4px var(--ring-inner-hole-glow-outer),
+    0 0 8px var(--ring-inner-hole-glow-outer);
+  
+  z-index: -1; /* Below center text, but above ring */
+  pointer-events: none;
+  
+  /* ✅ Ring inner hole glow ripple effect animation - synchronized expansion with ring body */
+  transition: transform 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  animation: ring-ripple-inner-glow 600ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  
+  transform-origin: 50% 50%;
+}
+
+/* === 🎯 Add Parent Direction Indicator on Ring - 🔧 v3.3 Fixed Version: Strictly Limit Display Range === */
+/* Only display parent direction indicator on non-root menu main containers, not on child icons */
+/* 🔧 Key fix: use more precise selector to avoid display in submenus */
+.menu-node.active:not(.level-0):not(.child) > .icon-layer::after {
+  content: '';
+  position: absolute;
+  
+  /* 🔧 Simplified positioning logic, use fixed position */
+  top: calc(-1 * var(--child-distance) - 8px);
+  left: calc(-8px);
+  
+  /* 📝 Simple arrow design: CSS-drawn arrow pointing to parent */
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 12px solid var(--parent-indicator-color);
+  
+  /* Arrow glow effect */
+  filter: drop-shadow(0 0 4px var(--parent-indicator-glow)) 
+          drop-shadow(0 0 8px var(--parent-indicator-glow));
+  
+  /* Animation effect */
+  transition: var(--menu-transition);
+  z-index: 25;
+  pointer-events: none;
+  
+  /* 🔧 Ensure arrow transform center point is correct */
+  transform-origin: 8px calc(var(--child-distance) + 8px);
+  
+  /* 🎯 Key: rotate arrow to point to parent direction */
+  transform: rotate(calc(var(--angle, 0deg) + 180deg));
+}
+
+/* Enhanced effect on hover */
+.menu-node.active:not(.level-0):not(.child):hover > .icon-layer::after {
+  border-bottom-color: var(--parent-indicator-color);
+  filter: drop-shadow(0 0 6px var(--parent-indicator-glow)) 
+          drop-shadow(0 0 12px var(--parent-indicator-glow))
+          drop-shadow(0 0 18px var(--parent-indicator-glow));
+  transform: rotate(calc(var(--angle, 0deg) + 180deg)) scale(1.2);
+}
+
+/* === 🎨 Icon Styles === */
+.menu-node .icon-container {
+  position: relative;
+  
+  /* 🔧 Fix 6: Icon container precisely centered */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color);
+  font-size: 32px;
+  opacity: 1;
+  transition: all 200ms ease-out;
+  z-index: 15;
+  
+  /* 🌟 Icon basic glow effect */
+  filter: 
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 4px var(--icon-glow))
+    drop-shadow(0 0 8px var(--icon-glow))
+    drop-shadow(0 0 12px var(--icon-glow-outer));
+  
+  /* 🎯 Ensure icon transform center point is at geometric center */
+  transform-origin: center center;
+}
+
+/* 🚑 Fix icon glow issue during expansion - prevent sector color during expansion, but preserve beautiful glow */
+.menu-node.child .icon-container {
+  /* Default state: complete glow effect, but no sector color */
+  filter: 
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 4px var(--icon-glow))
+    drop-shadow(0 0 8px var(--icon-glow))
+    drop-shadow(0 0 12px var(--icon-glow-outer)) !important;
+  color: var(--icon-color) !important;
+}
+
+/* ✅ Final version Kando hover effect - using .hovered class */
+.menu-node.child.hovered .icon-container {
+  transform: scale(1.2) !important;
+  color: var(--icon-hover-color) !important;  /* ✅ Fully effective: using Kando native hover mechanism */
+  
+  /* Enhanced glow effect on hover */
+  filter: 
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 6px var(--icon-glow))
+    drop-shadow(0 0 12px var(--icon-glow))
+    drop-shadow(0 0 18px var(--icon-glow))
+    drop-shadow(0 0 24px var(--icon-glow-outer))
+    drop-shadow(0 0 32px var(--icon-glow-outer)) !important;
+}
+
+/* 🚑 Final protection strategy: only limit glow, don't interfere with color and transform */
+.menu-node.child.hovered:not(:hover) .icon-container {
+  /* When Kando adds .hovered class but mouse is not truly hovering, only limit complex glow effects */
+  filter: 
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 0 4px var(--icon-glow))
+    drop-shadow(0 0 8px var(--icon-glow)) !important;
+  /* ✅ No longer force override color and transform, allow .hovered effect to work normally */
+}
+
+/* === 🔤 Center Text Minimal Configuration for Kando 2.0 === */
+.center-text {
+  /* 🎯 Only essential visual properties - let Kando 2.0 handle all sizing and layout */
+  color: var(--text-color);
+  
+  /* 🌟 Center text glow effect - preserved visual identity */
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 4px var(--text-glow),
+    0 0 8px var(--text-glow),
+    0 0 12px var(--text-glow),
+    0 0 16px var(--text-glow-outer),
+    0 0 24px var(--text-glow-outer);
+  
+  /* 🎯 Keep z-index for layering */
+  z-index: 20;
+}
+
+/* === 🔗 Connector Control: Completely Hide Connectors === */
+/* Default hide all connectors */
+.connector {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* Hide hovered item connectors */
+.menu-node.child.hovered .connector {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* Hide connectors pointing to hovered icon direction (green) */
+.menu-node.active:not(.child) .connector {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* Also hide parent connectors */
+.menu-node.parent .connector {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+/* === 🎭 Hide Grandchild Menus === */
+.menu-node.grandchild {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* === 🌿 Ring Natural Sway Animation Definitions === */
+/* Ring body natural sway - synchronized with icons */
+@keyframes ring-natural-sway {
+  0% {
+    transform: scale(0.85) rotate(-2deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.02) rotate(1deg);
+    opacity: 0.7;
+  }
+  80% {
+    transform: scale(0.99) rotate(-0.5deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* === 🌊 Ring Ripple Effect Animation Definitions === */
+/* Ring body ripple expansion - like water ripples expanding from center outward */
+@keyframes ring-ripple-expand {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  60% {
+    transform: scale(1.03);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Ring outer glow synchronized animation */
+@keyframes ring-outer-glow-sync {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Ring outer glow ripple expansion animation - synchronized expansion with main body */
+@keyframes ring-ripple-glow-expand {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+    box-shadow: 
+      0 0 0px var(--ring-glow),
+      0 0 0px var(--ring-glow-outer);
+  }
+  25% {
+    transform: scale(0.85);
+    opacity: 0.3;
+    box-shadow: 
+      0 0 4px var(--ring-glow),
+      0 0 8px var(--ring-glow),
+      0 0 16px var(--ring-glow-outer),
+      0 0 32px var(--ring-glow-outer);
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.6;
+    box-shadow: 
+      0 0 8px var(--ring-glow),
+      0 0 16px var(--ring-glow),
+      0 0 24px var(--ring-glow),
+      0 0 40px var(--ring-glow-outer),
+      0 0 60px var(--ring-glow-outer),
+      0 0 80px var(--ring-glow-outer);
+  }
+  80% {
+    transform: scale(1.05);
+    opacity: 0.9;
+    box-shadow: 
+      0 0 10px var(--ring-glow),
+      0 0 20px var(--ring-glow),
+      0 0 30px var(--ring-glow),
+      0 0 40px var(--ring-glow),
+      0 0 50px var(--ring-glow-outer),
+      0 0 70px var(--ring-glow-outer),
+      0 0 100px var(--ring-glow-outer),
+      0 0 140px var(--ring-glow-outer);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    box-shadow: 
+      0 0 6px var(--ring-glow),
+      0 0 12px var(--ring-glow),
+      0 0 18px var(--ring-glow),
+      0 0 24px var(--ring-glow),
+      0 0 40px var(--ring-glow-outer),
+      0 0 60px var(--ring-glow-outer),
+      0 0 80px var(--ring-glow-outer),
+      0 0 120px var(--ring-glow-outer);
+  }
+}
+
+/* Ring inner hole glow ripple animation - converging from outside to inside */
+@keyframes ring-ripple-inner-glow {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(0.92);
+    opacity: 0.4;
+  }
+  70% {
+    transform: scale(1.04);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Ring inner hole glow synchronized animation */
+@keyframes ring-inner-hole-glow-sync {
+  0% {
+    transform: scale(0.88);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.03);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
