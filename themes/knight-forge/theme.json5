@@ -23,7 +23,6 @@
     "wedge-color": "rgba(0, 0, 0, 0.2)",
   },
 
-  layers: [{ class: "icon-layer", content: "icon" },
-		   { class: 'label-layer', content: 'name' },
+  layers: [{ class: 'label-layer', content: 'name' },
   ],
 }
