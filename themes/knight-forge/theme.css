@@ -4,12 +4,13 @@
 
 @font-face {
   font-family: 'ProtoNerdPropo-Regular';
-  src: url(0xProtoNerdFontPropo-Regular);
+  src: url('0xProtoNerdFontPropo-Regular.otf');
 }
 
 #kando-menu {
-
   .menu-node {
+    color: transparent;
+
     --child-distance: 100px;
     --child-size: 60px;
 
@@ -17,19 +18,44 @@
     --fade-size: 45px;
 
     --connector-width: 10px;
+    --center-size: 120px;
 
     --menu-transition: 150ms ease;
 
     transition: var(--menu-transition);
 
+    &.active {
+      --center-size: 100px;
+    }
+
     &.child {
-      transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
-          calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+      transform: translate(
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y))
+      );
     }
 
     &.grandchild {
-      transform: translate(calc(var(--fade-distance) * var(--dir-x)),
-          calc(var(--fade-distance) * var(--dir-y)));
+      transform: translate(
+        calc(var(--fade-distance) * var(--dir-x)),
+        calc(var(--fade-distance) * var(--dir-y))
+      );
+    }
+
+    &.active:has(.hovered) > .child {
+      transform: scale(calc(1.15 - pow(var(--angle-diff) / 180, 0.25) * 0.15))
+        translate(
+          calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+          calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y))
+        );
+
+      &.hovered {
+        transform: scale(1.15)
+          translate(
+            calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+            calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y))
+          );
+      }
     }
 
     .icon-container {
@@ -39,14 +65,24 @@
       image-rendering: pixelated;
     }
 
-    &.hovered.clicked>.icon-layer {
+    &.hovered.clicked > .icon-layer {
       transform: scale(0.95);
     }
 
-    &.active>.icon-layer,
-    &.parent>.icon-layer,
-    &.child>.icon-layer,
-    &.grandchild>.icon-layer {
+    &.active > .icon-layer {
+      position: absolute;
+      top: calc(-1 * var(--center-size) / 2);
+      left: calc(-1 * var(--center-size) / 2);
+      width: var(--center-size);
+      height: var(--center-size);
+      background-image: url('icon.png');
+      background-size: contain;
+      image-rendering: high-quality;
+      box-shadow: 0 0 8px var(--hover-color);
+    }
+
+    &.parent > .icon-layer,
+    &.child > .icon-layer {
       position: absolute;
       top: calc(-1 * var(--child-size) / 2);
       left: calc(-1 * var(--child-size) / 2);
@@ -54,19 +90,24 @@
       height: var(--child-size);
       background-image: url('icon.png');
       background-size: contain;
-      image-rendering: pixelated;
+      image-rendering: high-quality;
     }
 
-    &.grandchild>.icon-layer {
+    &.grandchild > .icon-layer {
+      position: absolute;
       top: calc(-1 * var(--fade-size) / 2);
       left: calc(-1 * var(--fade-size) / 2);
       width: var(--fade-size);
       height: var(--fade-size);
+      background-image: url('icon.png');
+      background-size: contain;
+      image-rendering: high-quality;
     }
 
-    &.parent.hovered>.icon-layer,
-    &.child.hovered>.icon-layer {
+    &.parent.hovered > .icon-layer,
+    &.child.hovered > .icon-layer {
       background-image: url('icon-highlight.png');
+      image-rendering: high-quality;
     }
 
     &.grandchild {
@@ -87,19 +128,19 @@
       border-image: url('connector.png');
       border-image-slice: 5 60 5 60;
       border-image-repeat: round;
-      image-rendering: pixelated;
+      image-rendering: high-quality;
 
       opacity: 0;
     }
 
-    &:has(.dragged)>.connector,
-    &:has(.clicked)>.connector {
+    &:has(.dragged) > .connector,
+    &:has(.clicked) > .connector {
       transition: none;
     }
 
-    &.parent>.connector,
-    &:has(.dragged)>.connector,
-    &:has(.clicked)>.connector {
+    &.parent > .connector,
+    &:has(.dragged) > .connector,
+    &:has(.clicked) > .connector {
       opacity: 1;
     }
   }
@@ -110,5 +151,20 @@
     color: var(--text-color);
     font-size: 18px;
     line-height: 20px;
+  }
+
+  .selection-wedges {
+    mask: radial-gradient(circle at var(--center-x) var(--center-y), black 100px, transparent 50%);
+
+    &.hovered {
+      --width: calc(var(--end-angle) - var(--start-angle));
+      background: conic-gradient(
+        from calc(var(--start-angle)) at var(--center-x) var(--center-y),
+        var(--wedge-highlight-color) var(--width),
+        var(--wedge-color) var(--width)
+      );
+    }
+
+    background: var(--wedge-color);
   }
 }
