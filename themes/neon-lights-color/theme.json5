@@ -16,7 +16,7 @@
   "themeVersion": "3.0",
   "engineVersion": 1,
   "maxMenuRadius": 160,
-  "centerTextWrapWidth": 160,
+  "centerTextWrapWidth": 100,  // Precisely optimized - perfect fit within inner circle
   "drawChildrenBelow": true,
   "colors": {
     // === 🎯 Icon System (5 options) ===
