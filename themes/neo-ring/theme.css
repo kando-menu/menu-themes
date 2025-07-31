@@ -401,7 +401,8 @@
 }
 
 .selection-wedges {
-  mask: radial-gradient(circle at var(--center-x) var(--center-y), black 100px, transparent 50%);
+  mask: radial-gradient(circle at var(--center-x) var(--center-y), transparent 50px, black 52px);
+  -webkit-mask: radial-gradient(circle at var(--center-x) var(--center-y), transparent 50px, black 52px);
 
   &.hovered {
     --width: calc(var(--end-angle) - var(--start-angle));
