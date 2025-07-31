@@ -399,3 +399,18 @@
 #kando-menu {
   background-color: var(--canvas-color) !important;
 }
+
+.selection-wedges {
+  /* 修复楔形从中心圆形边缘开始，而不是从中心点开始 */
+  mask: radial-gradient(circle at var(--center-x) var(--center-y), transparent 50px, black 52px);
+  -webkit-mask: radial-gradient(circle at var(--center-x) var(--center-y), transparent 50px, black 52px);
+
+  &.hovered {
+    --width: calc(var(--end-angle) - var(--start-angle));
+    background: conic-gradient(from calc(var(--start-angle)) at var(--center-x) var(--center-y),
+        var(--wedge-highlight-color) var(--width),
+        var(--wedge-color) var(--width));
+  }
+
+  background: var(--wedge-color);
+}
