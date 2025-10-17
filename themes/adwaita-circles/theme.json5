@@ -1,0 +1,52 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//   _  _ ____ _  _ ___  ____                                                           //
+//   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         //
+//   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+// SPDX-FileCopyrightText: Nils277 <https://github.com/Nils277>
+// SPDX-License-Identifier: CC0-1.0
+
+{
+  name: 'Adwaita Circles',
+  author: 'Simon Schneegans, Nils277',
+  license: 'CC0-1.0',
+  themeVersion: '1.0',
+
+  // This theme was created for Kando's theme engine version 1. Kando will use this to
+  // check if the theme is compatible with the current version of Kando.
+  engineVersion: 1,
+
+  // When a menu is opened too close to a screen's edge, it is moved away from the edge
+  // by this amount of pixels.
+  maxMenuRadius: 128,
+  
+  // These colors can be configured by the user and are vailable in the CSS file as CSS
+  // variables. The default values are used if the user does not provide any values.
+  colors: {
+    //center
+    'center-background' : '#F5F5F5',
+    'center-background-hovered' : '#D0D0D0',
+    // Circle
+    'circle-background' : '#F5F5F5',
+    'circle-background-hovered': '#3584E4',
+    // Icons
+    'icon': '#222226',
+    'icon-hovered': '#FFFFFF',
+    // Label
+    'label-background': '#030408',
+    'label-text': '#FFFFFF',
+    // Connector
+    'connector': '#FFFFFF'
+  },
+
+  // This theme uses two layers, one for the icon and the background and one 
+  // for the texts which appear next to the hovered item.
+  layers: [
+    { class: 'icon-layer', content: 'icon' },
+    { class: 'label-layer', content: 'name' },
+  ],
+}
+
