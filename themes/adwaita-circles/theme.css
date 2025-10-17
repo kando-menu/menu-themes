@@ -83,7 +83,7 @@
     border: 1px solid color-mix(in lab, var(--label-background) 66%, #808080 100%);
     top: calc(-1 * var(--label-height) / 2);
     padding: 7px 12px;
-    font-size: 14px;
+    font-size: 15px;
     box-shadow: none;
     transition-delay: 0;
     transition: var(--label-transition);
