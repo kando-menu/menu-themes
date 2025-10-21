@@ -1,0 +1,213 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
+/* SPDX-FileCopyrightText: Nils277 <https://github.com/Nils277> */
+/* SPDX-License-Identifier: CC0-1.0 */
+
+.menu-node {
+  /* Center */
+  --center-size: 64px;
+  /* Children */
+  --child-size: 42px;
+  --child-distance: 72px;
+  /* Labels */
+  --label-height: 34px;
+  /* Grandchildren */
+  --grandchild-size: 32px;
+  --grandchild-distance: 0px;
+  /* Connector */
+  --connector-width: 6px;
+  /* Transitions */
+  --menu-transition: transform 200ms ease, left 200ms ease, top 200ms ease, width 200ms ease, height 200ms ease, margin 180ms ease, padding 180ms ease, opacity 160ms ease;
+  --label-transition: opacity 200ms ease;
+  --connector-transition: width 100ms ease, opacity 200ms ease;
+  --color-transition: background-color 160ms ease, border 160ms ease, color 160ms ease, box-shadow 160ms ease, outline 160ms ease;
+  --label-tooltop-delay: 400ms;
+
+  /* Calculation of label position (reduce the angle in the horizontal to 50%) */
+  /* This calculation could be simplified with the abs() and sign() methods but this version of css does not support it */
+  --angle_signed: calc(var(--angle) - 180deg);
+  --angle_signed_pos: calc(max(0deg, ((var(--angle_signed) - 90deg) * 0.5) + min( 90deg, 90 * var(--angle_signed))));
+  --angle_signed_neg: calc(min(0deg, ((var(--angle_signed) + 90deg) * 0.5) + max(-90deg, 90 * var(--angle_signed))));
+  --angle_label: 90deg + var(--angle_signed_pos) + var(--angle_signed_neg);
+  --label-x: calc(cos(var(--angle_label)));
+  --label-y: calc(sin(var(--angle_label)));
+
+  transition: var(--menu-transition);
+
+  /* Positioning ---------------------------------------------------------------------- */
+
+  /* Child items are positioned around the active node. */
+  &.child {
+    transform: translate(calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 10px * var(--sibling-count)) * var(--dir-y)));
+  }
+
+  /* Grandchild items are positioned around the child items. */
+  &.grandchild {
+    transform: translate(calc(var(--grandchild-distance) * var(--dir-x)),
+        calc(var(--grandchild-distance) * var(--dir-y)));
+  }
+
+  /* Theme Layers --------------------------------------------------------------------- */
+
+  /* We hide all icons by default. They will be shown further down in this 
+     file for the the child items. */
+  .icon-container {
+    position: relative;
+    opacity: 0;
+    width: 100%;
+    clip-path: circle(45% at 50% 50%);
+    transition: var(--menu-transition);
+  }
+
+  .label-layer,
+  .icon-layer {
+    position: absolute;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.5);
+  }
+
+  .label-layer {
+    transform: translate(calc(var(--child-size) * var(--label-x)), calc(var(--child-size) * var(--label-y)));
+    opacity: 0;
+    background-color: var(--label-background);
+    color: var(--label-text);
+    white-space: nowrap;
+    height: var(--label-height);
+    border-radius: var(--label-height);
+    border: 1px solid color-mix(in lab, var(--label-background) 66%, #808080 100%);
+    top: calc(-1 * var(--label-height) / 2);
+    padding: 7px 12px;
+    font-size: 15px;
+    box-shadow: none;
+    transition-delay: 0;
+    transition: var(--label-transition);
+  }
+
+  &.right>.label-layer {
+    left: calc(-0.35 * var(--child-size));
+  }
+
+  &.left>.label-layer {
+    right: calc(-0.35 * var(--child-size));
+  }
+
+  &.top>.label-layer {
+    bottom: calc(0.65 * var(--child-size));
+    top: inherit;
+    transform: translateX(-50%);
+  }
+
+  &.bottom>.label-layer {
+    top: calc(0.65 * var(--child-size));
+    transform: translateX(-50%);
+  }
+
+  .icon-layer {
+    top: calc(-0.5 * var(--child-size));
+    left: calc(-0.5 * var(--child-size));
+    width: var(--child-size);
+    height: var(--child-size);
+    border-radius: 50%;
+    background-color: var(--circle-background);
+    color: var(--icon);
+    z-index: 1;
+    padding: 3px;
+    transition: var(--color-transition), var(--menu-transition);
+  }
+  
+  &.hovered>.icon-layer {
+    background-color: var(--circle-background-hovered);
+    color: var(--icon-hovered);
+  }
+
+  &.active>.icon-layer {
+    top: calc(-1 * var(--center-size) / 2);
+    left: calc(-1 * var(--center-size) / 2);
+    width: var(--center-size);
+    height: var(--center-size);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    color: var(--icon);
+    background-color: var(--center-background-hovered);
+    transition: var(--menu-transition), var(--color-transition);
+  }
+  
+  &.active:has(>.hovered)>.icon-layer {
+    background-color: var(--center-background);
+  }
+
+  &.grandchild>.icon-layer {
+    top: calc(-0.50 * var(--grandchild-size));
+    left: calc(-0.50 * var(--grandchild-size));
+    width: var(--grandchild-size);
+    height: var(--grandchild-size);
+    box-shadow: none;
+    background-color: transparent ;
+  }
+
+  /* When the center is hovered, set the color of the parent too */
+  &.type-submenu.parent:not(.active).hovered>.icon-layer {
+    background-color: var(--center-background-hovered);
+    color: var(--icon);
+  }
+
+  /* The active menu item is the center of the menu. */
+  &.child.hovered>.label-layer {
+    transition: var(--label-transition);
+    transition-delay: var(--label-tooltop-delay);
+    opacity: 1;
+  }
+
+  /* Show the icons of the parent and child items. */
+  &.active>.icon-layer>.icon-container,
+  &.parent>.icon-layer>.icon-container,
+  &.child>.icon-layer>.icon-container {
+    transition: var(--menu-transition);
+    opacity: 1;
+  }
+
+  /* We disable any transition for dragged submenu items. */
+  &.dragged.type-submenu {
+    transition: none;
+  }
+
+  /* Connectors ----------------------------------------------------------------------- */
+
+  .connector {
+    transition: var(--connector-transition);
+    height: var(--connector-width);
+    top: calc(-1 * var(--connector-width) / 2);
+    background-color: var(--connector);
+    opacity: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  &:has(>.parent).hovered>.connector,
+  &:has(>.active.type-submenu).hovered>.connector,
+  &:has(>.dragged.type-submenu).hovered>.connector {
+    background-color: color-mix(in srgb, var(--connector) 100%, var(--center-background-hovered) 90%);
+  }
+
+  &:has(>.dragged)>.connector,
+  &:has(>.clicked)>.connector {
+    transition: none;
+  }
+
+  &:has(>.parent)>.connector,
+  &:has(>.active.type-submenu)>.connector,
+  &:has(>.dragged.type-submenu)>.connector {
+    opacity: 1;
+  }
+}
+
+/* Center Text ------------------------------------------------------------------------ */
+
+.center-text {
+  display: none;
+}
+
