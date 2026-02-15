@@ -6,6 +6,8 @@ version = 2
 [[annotations]]
 path = ["*.jpg", "*.png"]
 precedence = "aggregate"
+SPDX-FileCopyrightText = "Elfi Ox <https://github.com/elfi-ox>"
+SPDX-License-Identifier = "CC0-1.0"
 
 # Font from: https://fonts.google.com/specimen/Plus+Jakarta+Sans
 [[annotations]]
@@ -15,11 +17,13 @@ SPDX-FileCopyrightText = "Copyright 2020 The Plus Jakarta Sans Project Authors (
 SPDX-License-Identifier = "OFL-1.1"
 
 [[annotations]]
-path = ["preset/*.json"]
+path = ["presets/*.json"]
 precedence = "aggregate"
+SPDX-FileCopyrightText = "Elfi Ox <https://github.com/elfi-ox>"
+SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
-path = ["preset/Nord.json"]
+path = ["presets/Nord.json"]
 precedence = "override"
 SPDX-FileCopyrightText = "Ba Nyar Naing <https://github.com/devnyar>"
 SPDX-License-Identifier = "CC0-1.0"
