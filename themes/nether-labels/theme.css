@@ -24,7 +24,7 @@
   --menu-transition: transform 175ms ease, left 200ms ease, top 200ms ease, width 200ms ease, height 200ms ease, margin 180ms ease, padding 180ms ease, opacity 200ms ease;
   --connector-transition: width 100ms ease, opacity 200ms ease;
   --color-transition: background-color 200ms ease, border 60ms ease, color 100ms ease, box-shadow 100ms ease, outline 100ms ease;
-
+  
   transition: var(--menu-transition);
 
   /* Positioning ---------------------------------------------------------------------- */
@@ -91,11 +91,11 @@
     padding: calc(var(--icon-size) / 4.6) calc(var(--icon-size) / 3);
     font-size: calc(var(--icon-size) / 3);
     transition: var(--color-transition);
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px var(--shadow-color);
   }
 
   &.hovered>.label-layer {
-    color: var(--hover-color);
+    color: var(--text-hover-color);
     border-color: var(--hover-color);
     box-shadow: 0 0 8px var(--hover-color) inset;
   }
@@ -122,7 +122,7 @@
   &.hovered.top>.label-layer {
     margin-bottom: 3px;
   }
-
+ 
   &.bottom>.label-layer {
     top: calc(0.4 * var(--icon-size));
     transform: translateX(-50%);
@@ -148,7 +148,7 @@
     left: calc(-1 * var(--center-size) / 2);
     width: var(--center-size);
     height: var(--center-size);
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 12px var(--shadow-color);
     transition: var(--menu-transition), var(--color-transition);
   }
 
@@ -181,6 +181,7 @@
     left: calc(-0.55 * var(--grandchild-size));
     width: calc(1.1 * var(--grandchild-size));
     height: calc(1.1 * var(--grandchild-size));
+    box-shadow: 0 0 10px var(--shadow-color);;
   }
 
   &.type-submenu.parent:not(.active)>.icon-layer {
@@ -215,7 +216,7 @@
     top: calc(-1 * var(--connector-width) / 2);
     background-color: var(--connector-color);
     opacity: 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 10px var(--shadow-color);;
   }
 
   &:has(>.dragged)>.connector,

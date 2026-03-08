@@ -1,0 +1,15 @@
+{
+  "colors": {
+    "accent-color": "#D8DEE9",
+    "hover-color": "#D8DEE9",
+    "submenu-items-hover-color": "#D8DEE9",
+    "text-hover-color": "#D8DEE9",
+    "connector-color": "#3B4252",
+    "shrinked-outline-color": "#3B4252",
+    "circle-color": "#4C566A",
+    "border-color": "#3B4252",
+    "submenu-items-color": "#3B4252",
+    "label-background-color": "#434C5E",
+    "text-color": "#ECEFF4"
+  }
+}
