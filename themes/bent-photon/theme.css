@@ -5,9 +5,6 @@
 /*                                                                                      */
 /*//////////////////////////////////////////////////////////////////////////////////////*/
 
-/* SPDX-FileCopyrightText: reass <https://github.com/reassDev> */
-/* SPDX-FileCopyrightText: Copyright (c) 2024 NeighNeighNeigh */
-/* SPDX-License-Identifier: MIT */
 
 @font-face {
   font-family: 'SpaceGrotesk-Bold';
@@ -16,23 +13,23 @@
 
 
 #kando-menu {
-  --dots-spacing: 3px;
-  --dots-size: 1px;
-  background-color: var(--canvas-color);
-  background-image: radial-gradient(var(--dots-color) var(--dots-size), transparent 0);
+  --dots-spacing: 2px;
+  --dots-size: 0.5px;
+  background-color: var(--Canvas);
+  background-image: radial-gradient(var(--Dots) var(--dots-size), transparent 0);
   background-size: var(--dots-spacing) var(--dots-spacing);
   background-position: calc(var(--dots-spacing)-var(--dots-size)) calc(var(--dots-spacing)-var(--dots-size));
 }
 
 .menu-node {
-  --child-distance: 90px;
+  --child-distance: 80px;
   --grandchild-distance: 60px;
-  --center-size: 140px;
-  --icon-size: 32px;
+  --center-size: 128px;
+  --icon-size: 28px;
   --connector-width: 10px;
-  --menu-transition: transform 120ms ease-out, opacity 120ms ease-out;
+  --menu-transition: transform 200ms ease, opacity 200ms ease;
   --number-padding-left: 20px;
-  --box-height: 36px;
+  --box-height: 32px;
 
 
   transform-origin: left top;
@@ -80,7 +77,7 @@
     width: 100%;
     opacity: 0;
     transition: var(--menu-transition);
-    color: var(--icon-color);
+    color: var(--Icons);
   }
 
 
@@ -101,10 +98,10 @@
 
   .label-layer {
     opacity: 0;
-    background-color: var(--lowlight-color);
-    color: var(--text-color);
-    font-size: 14px;
-    letter-spacing: 0.12em; /* Adjust this value as needed */
+    background-color: var(--Lowlight);
+    color: var(--Text);
+    font-size: 12px;
+    letter-spacing: 0.1em; /* Adjust this value as needed */
     font-family: SpaceGrotesk-Bold;
     line-height: var(--box-height);
     border-radius: 5px;
@@ -118,7 +115,7 @@
 
   &::after {
     padding-left: var(--number-padding-left);
-    color: var(--number-unhovered-color);
+    color: var(--Number);
 /*    mix-blend-mode: overlay;*/
     }
   }
@@ -251,19 +248,19 @@
   }
 
   &.hovered>.label-layer {
-    background-color: var(--highlight-color);
-    color: var(--text-color);
+    background-color: var(--Highlight);
+    color: var(--Text〔Hovered〕);
 /*    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.35);*/
 
     &::after {
     padding-left: var(--number-padding-left);
-    color: color-mix(in srgb, var(--text-color) 50%, transparent);
+    color: var(--Number〔Hovered〕);
     }
 
   }
 
   &.hovered>.icon-layer>.icon-container {
-    color: var(--text-color)
+    color: var(--Icons〔Hovered〕)
   }
 
 
@@ -289,7 +286,7 @@
   transform: translate(-50%, -50%);
   width: calc(100% - (var(--center-size)*1)); /* Adjust how close the connector gets to the icon */
   height: 100%;
-  background: linear-gradient(to right, color-mix(in srgb, var(--highlight-color) 0%, transparent) 0%, var(--highlight-color) 100%);
+  background: linear-gradient(to right, color-mix(in srgb, var(--Highlight) 0%, transparent) 0%, var(--Highlight) 100%);
   border-radius: calc(var(--connector-width) / 2);
   opacity: 1;
   transition: var(--menu-transition);
