@@ -21,3 +21,9 @@ path = ["presets/Reass Red.json"]
 precedence = "override"
 SPDX-FileCopyrightText = "Ba reass <https://github.com/reassDev>"
 SPDX-License-Identifier = "CC-BY-4.0"
+
+[[annotations]]
+path = ["banner.png"]
+precedence = "override"
+SPDX-FileCopyrightText = "Elfi Ox <https://github.com/elfi-ox>"
+SPDX-License-Identifier = "CC0-1.0"
