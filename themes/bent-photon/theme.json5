@@ -5,15 +5,15 @@
 //                                                                                      //
 //////////////////////////////////////////////////////////////////////////////////////////
 
-// SPDX-FileCopyrightText: reass <https://github.com/reassDev>
-// SPDX-FileCopyrightText: Copyright (c) 2024 NeighNeighNeigh
+// SPDX-FileCopyrightText: NeighNeighNeigh <https://github.com/NeighNeighNeigh>
+// SPDX-FileCopyrightText: Elfi Ox <https://github.com/elfi-ox>
 // SPDX-License-Identifier: MIT
 
 {
-  name: "Bent Photon Modified",
-  author: "reass and Neigh",
+  name: "Bent Photon",
+  author: "Neigh",
   license: "CC0-1.0",
-  themeVersion: "1.0",
+  themeVersion: "2.0",
 
   // This theme was created for Kando's theme engine version 1. Kando will use this to
   // check if the theme is compatible with the current version of Kando.
@@ -29,13 +29,16 @@
   // These colors can be configured by the user and are vailable in the CSS file as CSS
   // variables. The default values are used if the user does not provide any values.
   colors: {
-    'lowlight-color': 'oklch(63.11% 0.2546 22.82 / 56%)',
-    'highlight-color': 'oklch(57.52% 0.2358 28.95)',
-    'text-color': 'oklch(84.38% 0.0173 45.4)',
-    'icon-color': 'oklch(84.38% 0.0173 45.4)',
-    'number-unhovered-color': 'oklch(91.11% 0.0295 4.56 / 84%)',
-    'canvas-color': 'oklch(50.76% 0.2933 286.69 / 7%)',
-    'dots-color': 'oklch(100% 0% 0deg / 0%)',
+    'Highlight': 'rgb(79 250 122)',
+    'Lowlight': 'rgb(40 42 55)',
+    'Icons': 'rgb(79 250 122)',
+    'Text': 'rgb(79 250 122)',
+    'Number': 'rgba(255 255 255 / 0.35)',
+    'Icons〔Hovered〕': 'rgb(40 42 55)',
+    'Text〔Hovered〕': 'rgb(40 42 55)',
+    'Number〔Hovered〕':'rgba(40 42 55 / 0.5)',
+    'Canvas': 'rgba(67 70 89 / 0.7)',
+    'Dots': 'rgba(255 255 255 / 0)',
   },
 
 
@@ -44,3 +47,8 @@
     { class: "icon-layer", content: "icon" },
   ],
 }
+
+
+
+
+
