@@ -7,7 +7,7 @@ version = 1
 path = ["*.jpg", "*.png"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "NeighNeighNeigh Discord user digitalart3d"
-SPDX-License-Identifier = "MIT"
+SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 path = ["presets/Dark.json"]
