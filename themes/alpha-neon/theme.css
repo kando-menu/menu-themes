@@ -66,7 +66,7 @@
        center item and the child items. */
   .icon-container {
     opacity: 0;
-    color: white;
+    color: var(--Icons);
     transition: var(--opacity-transition); 
     filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 1)) /*-- ICONS DROP SHADOW --*/
   }
@@ -250,7 +250,7 @@
 /* Center Text ------------------------------------------------------------------------ */
 
 .center-text {
-  color: white;
+  color: var(--Text);
   transition: var(--opacity-transition);
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.4);
   font-size: 13px;
