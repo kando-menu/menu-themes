@@ -12,14 +12,21 @@ SPDX-License-Identifier = "CC-BY-4.0"
 [[annotations]]
 path = ["presets/Dark.json"]
 precedence = "override"
-SPDX-FileCopyrightText = "Discord user digitalart3d"
+precedence = "override"
+SPDX-FileCopyrightText = "Discord user Renshu"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 [[annotations]]
 path = ["presets/Sterelia.json"]
 precedence = "override"
-SPDX-FileCopyrightText = "Discord user Renshu"
-SPDX-License-Identifier = "CC-BY-4.0"
+SPDX-FileCopyrightText = "Elfi Ox <https://github.com/elfi-ox>"
+SPDX-License-Identifier = "CC0-1.0"
+[[annotations]]
+
+path = ["presets/Nether.json"]
+precedence = "override"
+SPDX-FileCopyrightText = "Elfi Ox <https://github.com/elfi-ox>"
+SPDX-License-Identifier = "CC0-1.0"
 
 [[annotations]]
 path = ["banner.png"]
