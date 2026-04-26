@@ -12,7 +12,7 @@
   name: 'Alpha Neon',
   author: 'AMINE | 3D ARTIST',
   license: 'CC0-1.0',
-  themeVersion: '3.0',
+  themeVersion: '3.1',
 
   // This theme was created for Kando's theme engine version 1. Kando will use this to
   // check if the theme is compatible with the current version of Kando.
@@ -49,6 +49,8 @@
     'Items Circles Border': 'rgba(255, 255, 255, 0)',  
     'Items Circles Border〔hovered〕': 'rgba(255, 255, 255, 0)',
     'Items Circles Clicked': 'rgba(255, 255, 255, 0)',  
+    'Icons': 'rgba(255, 255, 255, 1)',  
+    'Text': 'rgba(255, 255, 255, 1)',  
   },
 
   // This is a very complex theme with multiple layers.

@@ -1,0 +1,18 @@
+{
+  "colors": {
+    "Outer Ring": "rgb(211 173 255)",
+    "Inner Ring": "rgb(211 173 255)",
+    "Inner Ring〔active〕": "rgb(255 255 255 / 0)",
+    "Arrow": "rgb(211 173 255)",
+    "Connector": "rgb(211 173 255 / 0.69)",
+    "Separator": "rgb(211 173 255 / 0.5)",
+    "Wedge": "rgb(140 91 197 / 0.3)",
+    "Center Circle": "rgb(0 0 0 / 0.3)",
+    "Items Circles": "rgb(8 3 18 / 0.71)",
+    "Items Circles Border": "rgb(18 5 28 / 0.75)",
+    "Items Circles Border〔hovered〕": "rgb(211 173 255)",
+    "Items Circles Clicked": "rgb(211 173 255)",
+    "Icons": "rgb(211 173 255)",
+    "Text": "rgb(255 255 255)"
+  }
+}
