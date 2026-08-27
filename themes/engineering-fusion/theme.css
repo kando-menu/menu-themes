@@ -1,0 +1,431 @@
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+/*   _  _ ____ _  _ ___  ____                                                           */
+/*   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         */
+/*   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     */
+/*                                                                                      */
+/*//////////////////////////////////////////////////////////////////////////////////////*/
+
+/* SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de> */
+/* SPDX-License-Identifier: CC0-1.0 */
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.menu-node {
+  --child-distance: 125px;
+  --grandchild-distance: 16px;
+  --grandchild-size: 15px;
+  --center-size: 100px;
+  --child-size: 50px;
+  --connector-width: 5px;
+  --menu-transition: all 250ms cubic-bezier(0.775, 1.325, 0.535, 1);
+  --opacity-transition: opacity 250ms ease;
+
+  transition: var(--menu-transition);
+
+  /* Positioning ---------------------------------------------------------------------- */
+
+  /* This theme does not render grandchild items. Children are displayed around the
+     active node. */
+  &.child {
+    transform: translate(calc(max(var(--child-distance), 13px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 13px * var(--sibling-count)) * var(--dir-y)));
+  }
+
+  /* If there is a hovered child node, we scale all children up a bit to create a cool
+     zoom effect. The hovered child itself is scaled up even more. */
+  &.active:has(>.hovered)>.child {
+    transform: scale(calc(1.5 - pow(var(--angle-diff) / 180, 0.25) * 0.5)) translate(calc(max(var(--child-distance), 13px * var(--sibling-count)) * var(--dir-x)),
+        calc(max(var(--child-distance), 13px * var(--sibling-count)) * var(--dir-y)));
+
+    &.hovered {
+      transform: scale(1.5) translate(calc(max(var(--child-distance), 13px * var(--sibling-count)) * var(--dir-x)),
+          calc(max(var(--child-distance), 13px * var(--sibling-count)) * var(--dir-y)));
+    }
+
+    /* Grandchild items are hidden with this theme, but we have to position them
+     nevertheless to allow for smooth transitions when showing or hiding them. */
+    &.grandchild {
+      transform: translate(calc(var(--grandchild-distance) * var(--dir-x)),
+          calc(var(--grandchild-distance) * var(--dir-y)));
+    }
+  }
+
+
+  /* Theme Layers --------------------------------------------------------------------- */
+
+  /* We hide all icons by default. They will be shown further down in this file for the
+       center item and the child items. */
+  .icon-container {
+    opacity: 0;
+    color: white;
+    transition: var(--opacity-transition);
+    filter: drop-shadow(0 0 3px white) drop-shadow(0 0 10px var(--glow-color));
+  }
+
+  .arrow-layer,
+  .ring-slow-layer,
+  .ring-slow-layer::before,
+  .ring-fast-layer,
+  .ring-fast-layer::before,
+  .icon-layer {
+    position: absolute;
+    transition: var(--menu-transition);
+  }
+
+  /* The active menu item is the center of the menu. */
+  &.active>.arrow-layer,
+  &.active>.ring-slow-layer,
+  &.active>.ring-fast-layer,
+  &.active>.icon-layer {
+    top: calc(-1 * var(--center-size) / 2);
+    left: calc(-1 * var(--center-size) / 2);
+    width: var(--center-size);
+    height: var(--center-size);
+  }
+
+  &.active>.ring-slow-layer::before,
+  &.active>.ring-fast-layer::before {
+    top: 0;
+    left: 0;
+    width: var(--center-size);
+    height: var(--center-size);
+  }
+
+  .icon-layer::before {
+    content: '';
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.2), transparent 75%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .arrow-layer {
+    background: url(assets/arrow.svg) no-repeat center;
+    transform: scale(1.0) rotate(var(--hovered-child-angle));
+    opacity: 0;
+  }
+
+  &:has(.dragged)>.arrow-layer {
+    transform: scale(1.6) rotate(var(--pointer-angle));
+    transition: none;
+  }
+
+  .ring-slow-layer {
+    animation: rotate 10s linear infinite;
+    opacity: 0;
+
+    &::before {
+      content: '';
+      mask-image: url(assets/ring-mask.svg);
+      background-image: radial-gradient(circle,
+          transparent 20%,
+          rgba(120, 120, 120, 0.1) 27%,
+          rgba(120, 120, 120, 0.2) 30%,
+          rgba(120, 120, 120, 0.6) 33%,
+          rgb(120, 120, 120) 34%,
+          rgb(120, 120, 120) 36%,
+          rgba(120, 120, 120, 0.6) 37%,
+          rgba(120, 120, 120, 0.2) 40%,
+          rgba(120, 120, 120, 0.1) 47%,
+          transparent 60%)
+    }
+  }
+
+  .ring-fast-layer {
+    animation: rotate 2s linear infinite;
+    opacity: 0;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.3) 60%, transparent 70%);
+
+    &::before {
+      content: '';
+      mask-image: url(assets/ring-mask.svg);
+      background-image: radial-gradient(circle,
+          transparent 20%,
+          color-mix(in srgb, var(--glow-color) 10%, transparent) 27%,
+          color-mix(in srgb, var(--glow-color) 20%, transparent) 30%,
+          color-mix(in srgb, var(--glow-color) 60%, transparent) 33%,
+          white 34%,
+          white 36%,
+          color-mix(in srgb, var(--glow-color) 60%, transparent) 37%,
+          color-mix(in srgb, var(--glow-color) 20%, transparent) 40%,
+          color-mix(in srgb, var(--glow-color) 10%, transparent) 47%,
+          transparent 60%)
+    }
+  }
+
+  /* If the center item has a hovered child node, we scale it up and hide its icon. */
+  &.active:has(>.hovered)>.ring-fast-layer {
+    opacity: 1;
+
+    &::before {
+      transform: scale(2.0);
+    }
+  }
+
+  &.active:not(:has(>.hovered))>.ring-slow-layer {
+    opacity: 1;
+
+    &::before {
+      transform: scale(1.0);
+    }
+  }
+
+  &.active:has(.hovered)>.arrow-layer {
+    opacity: 1;
+    transform: scale(1.6) rotate(var(--hovered-child-angle));
+  }
+
+  &.active:has(.hovered.dragged)>.arrow-layer {
+    transform: scale(1.6) rotate(var(--pointer-angle));
+  }
+
+  /* If the parent or a child node is clicked, we scale it down to normal size. */
+  &.parent.hovered.clicked>.icon-layer,
+  &.child.hovered.clicked>.icon-layer {
+    transform: scale(0.8);
+  }
+
+  /* Show the icons of the center, parent and child items. */
+  &.parent>.icon-layer>.icon-container,
+  &.child>.icon-layer>.icon-container {
+    opacity: 1;
+  }
+
+  /* Child items are displayed around the active node. The parent node of the active
+       node is displayed in a similar style. */
+  &.parent>.icon-layer,
+  &.child>.icon-layer {
+    top: calc(-1 * var(--child-size) / 2);
+    left: calc(-1 * var(--child-size) / 2);
+    width: var(--child-size);
+    height: var(--child-size);
+  }
+
+  /* Grandchild items are invisible. The sizing is required for transitions from and to
+     this state. */
+  &.grandchild>.icon-layer {
+    top: calc(-1 * var(--grandchild-size) / 2);
+    left: calc(-1 * var(--grandchild-size) / 2);
+    width: var(--grandchild-size);
+    height: var(--grandchild-size);
+    opacity: 0;
+  }
+
+  /* We disable any transition for dragged items. */
+  &.dragged {
+    transition: none;
+  }
+
+  /* Connectors ----------------------------------------------------------------------- */
+
+  .connector {
+    transition: var(--menu-transition);
+    height: var(--connector-width);
+    top: calc(-1 * var(--connector-width) / 2);
+  }
+
+  &:has(.dragged)>.connector {
+    transition: none;
+  }
+
+  .connector {
+    background: linear-gradient(to right, transparent 80px, var(--connector-color) 50%, transparent calc(100% - 80px));
+  }
+}
+
+/* Permanent Orbital Labels ---------------------------------------------------------- */
+
+.menu-node {
+  .label-layer {
+    position: absolute;
+    z-index: 20;
+    opacity: 0;
+    pointer-events: none;
+    box-sizing: border-box;
+    color: white;
+    background: rgba(3, 10, 18, 0.88);
+    border: 1px solid color-mix(in srgb, var(--glow-color) 85%, white);
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.95), 0 0 10px var(--glow-color);
+    text-shadow: 0 1px 2px black;
+    font: 600 12px/16px "Segoe UI", sans-serif;
+    white-space: nowrap;
+    padding: 3px 7px;
+    transition: var(--menu-transition), opacity 160ms ease;
+  }
+
+  &.child>.label-layer,
+  &.parent>.label-layer {
+    opacity: 1;
+    left: calc(72px * var(--dir-x));
+    top: calc(72px * var(--dir-y));
+    transform: translate(-50%, -50%);
+  }
+
+  &.child.hovered>.label-layer,
+  &.parent.hovered>.label-layer {
+    background: rgba(3, 15, 26, 0.96);
+    border-color: white;
+  }
+}
+
+/* Center Text ------------------------------------------------------------------------ */
+
+.center-text {
+  color: white;
+  transition: var(--opacity-transition);
+  text-shadow: 0 0 10px var(--glow-color);
+  font-size: 16px;
+  line-height: 22px;
+  overflow: visible;
+}
+
+/* Selection Wedges ------------------------------------------------------------------- */
+
+.selection-wedges {
+  mask: radial-gradient(circle at var(--center-x) var(--center-y),
+      transparent 0%,
+      transparent 100px,
+      black 150px,
+      transparent 500px);
+
+  &.hovered {
+    background: conic-gradient(from calc(var(--start-angle)) at var(--center-x) var(--center-y),
+        var(--wedge-color) calc(var(--end-angle) - var(--start-angle)),
+        transparent calc(var(--end-angle) - var(--start-angle)));
+  }
+}
+
+.wedge-separators {
+  .separator {
+    background: linear-gradient(to right, transparent 50px, var(--separator-color) 100px, transparent 300px);
+  }
+}
+
+
+/* Orbital Engineering V3.2 Preview -------------------------------------------------- */
+
+/* Permanent labels make the dynamic center text redundant. Hiding it prevents the
+   active icon from being covered by text. */
+.center-text {
+  display: none !important;
+}
+
+/* Show the icon of the currently active node in the central ring. The root uses
+   Kando_Orbital.ico; submenus use their category icon. */
+.menu-node.active>.icon-layer>.icon-container {
+  opacity: 1 !important;
+}
+
+/* Keep application labels clear of larger original program icons. */
+.menu-node.child.type-command>.label-layer {
+  left: calc(92px * var(--dir-x));
+  top: calc(92px * var(--dir-y));
+}
+
+/* The parent node is the way back. Its label must sit beyond the icon rather than
+   covering it (notably the Orbital Engineering galaxy). */
+.menu-node.parent>.label-layer {
+  left: 0;
+  top: 0;
+}
+
+
+/* Orbital Fusion V3.4 --------------------------------------------------------------- */
+/* The approved rotating center remains untouched. Only child and parent nodes gain a
+   radial breathing ring, while the selected sector receives a deeper blue aura. */
+
+@keyframes orbital-child-breathe {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.38;
+    box-shadow: 0 0 4px rgb(70 100 255 / 0.45), 0 0 10px rgb(0 0 210 / 0.28);
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.18);
+    opacity: 0.95;
+    box-shadow: 0 0 8px rgb(125 165 255 / 0.92), 0 0 22px rgb(0 35 255 / 0.82), 0 0 38px rgb(0 0 210 / 0.45);
+  }
+}
+
+@keyframes orbital-child-arrive {
+  0% {
+    transform: translate(-50%, -50%) scale(0.35);
+    opacity: 0;
+  }
+
+  68% {
+    transform: translate(-50%, -50%) scale(1.12);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.55;
+  }
+}
+
+.menu-node.child>.icon-layer::after,
+.menu-node.parent>.icon-layer::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1.5px solid rgb(105 140 255 / 0.68);
+  background: radial-gradient(circle,
+      rgb(40 75 255 / 0.14) 0%,
+      rgb(0 20 210 / 0.08) 48%,
+      transparent 72%);
+  transform: translate(-50%, -50%);
+  opacity: 0.55;
+  box-shadow: 0 0 6px rgb(90 125 255 / 0.55), 0 0 16px rgb(0 0 210 / 0.32);
+  animation: orbital-child-arrive 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.menu-node.child.hovered>.icon-layer::after,
+.menu-node.parent.hovered>.icon-layer::after {
+  border: 2px solid rgb(180 205 255 / 0.98);
+  background: radial-gradient(circle,
+      rgb(65 105 255 / 0.32) 0%,
+      rgb(0 25 210 / 0.20) 48%,
+      transparent 74%);
+  animation: orbital-child-breathe 1.15s ease-in-out infinite;
+}
+
+/* Keep original application artwork above the new ring and avoid clipping it. */
+.menu-node.child>.icon-layer,
+.menu-node.parent>.icon-layer {
+  overflow: visible !important;
+  isolation: isolate;
+}
+
+/* Stronger Navigation-inspired selected wedge, still transparent enough to preserve
+   the sparse Orbital layout. */
+.selection-wedges.hovered {
+  filter:
+    drop-shadow(0 0 8px rgb(65 95 255 / 0.72)) drop-shadow(0 0 24px rgb(0 0 210 / 0.62)) drop-shadow(0 0 52px rgb(0 0 210 / 0.38));
+}
+
+.menu-node.child.hovered>.icon-layer>.icon-container,
+.menu-node.parent.hovered>.icon-layer>.icon-container {
+  filter:
+    drop-shadow(0 0 4px white) drop-shadow(0 0 12px rgb(90 130 255)) drop-shadow(0 0 26px rgb(0 0 210));
+}

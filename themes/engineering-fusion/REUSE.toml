@@ -1,0 +1,10 @@
+version = 1
+SPDX-PackageName = "Engineering Fusion"
+SPDX-PackageSupplier = "Marco Lapi"
+SPDX-PackageDownloadLocation = "NOASSERTION"
+
+[[annotations]]
+path = ["theme.css", "theme.json5", "preview.jpg", "assets/**", "presets/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Simon Schneegans and Marco Lapi"
+SPDX-License-Identifier = "CC0-1.0"

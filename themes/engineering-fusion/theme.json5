@@ -1,0 +1,54 @@
+//////////////////////////////////////////////////////////////////////////////////////////
+//   _  _ ____ _  _ ___  ____                                                           //
+//   |_/  |__| |\ | |  \ |  |    This file belongs to Kando, the cross-platform         //
+//   | \_ |  | | \| |__/ |__|    pie menu. Read more on github.com/kando-menu/kando     //
+//                                                                                      //
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// SPDX-FileCopyrightText: Simon Schneegans <code@simonschneegans.de>
+// SPDX-License-Identifier: CC0-1.0
+
+{
+  name: 'Engineering Fusion',
+  author: 'Marco Lapi — based on Neon Lights by Simon Schneegans',
+  license: 'CC0-1.0',
+  themeVersion: '4.0',
+
+  // This theme was created for Kando's theme engine version 1. Kando will use this to
+  // check if the theme is compatible with the current version of Kando.
+  engineVersion: 1,
+
+  // When a menu is opened too close to a screen's edge, it is moved away from the edge
+  // by this amount of pixels.
+  maxMenuRadius: 290,
+
+  // The width at which the center text is wrapped.
+  centerTextWrapWidth: 95,
+
+  // This theme draws child items below their parent items.
+  drawChildrenBelow: true,
+
+  // Draw the circle segment of the hovered menu item.
+  drawWedgeSeparators: true,
+
+  // Draw the thin lines between adjacent menu items.
+  drawSelectionWedges: true,
+
+  // These colors can be configured by the user and are vailable in the CSS file as CSS
+  // variables. The default values are used if the user does not provide any values.
+  colors: {
+    'glow-color': 'rgb(0 0 210)',
+    'connector-color': 'rgb(80 110 255 / 0.78)',
+    'separator-color': 'rgb(160 185 255 / 0.24)',
+    'wedge-color': 'rgb(0 0 210 / 0.14)',
+  },
+
+  // This is a very complex theme with multiple layers.
+  layers: [
+    { class: 'icon-layer', content: 'icon' },
+    { class: 'label-layer', content: 'name' },
+    { class: 'ring-fast-layer', content: 'none' },
+    { class: 'ring-slow-layer', content: 'none' },
+    { class: 'arrow-layer', content: 'none' },
+  ],
+}
