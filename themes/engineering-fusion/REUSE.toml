@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: "Marco Lapi"
+# SPDX-License-Identifier: "CC0-1.0"
+
 version = 1
 SPDX-PackageName = "Engineering Fusion"
 SPDX-PackageSupplier = "Marco Lapi"
